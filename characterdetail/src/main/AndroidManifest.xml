@@ -1,2 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="br.com.xpchallenge.characterdetail" />
+    package="br.com.xpchallenge.characterdetail">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application>
+        <activity android:name=".CharacterDetailActivity" />
+    </application>
+</manifest>

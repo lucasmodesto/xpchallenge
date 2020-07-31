@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.xpchallenge.home">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application>
 
         <activity

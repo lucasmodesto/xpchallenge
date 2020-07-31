@@ -24,14 +24,14 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "MARVEL_API_URL", "\"http://gateway.marvel.com/v1/public/\""
+            buildConfigField "String", "MARVEL_API_URL", "\"https://gateway.marvel.com/v1/public/\""
             buildConfigField "String", "API_PUBLIC_KEY", "\"8f701ad25d3f9dc84edc1058d6a2db81\""
             buildConfigField "String", "API_PRIVATE_KEY", "\"4841a7ba119870268dcdade9d1298aa4cca3c96a\""
         }
 
         debug {
             minifyEnabled false
-            buildConfigField "String", "MARVEL_API_URL", "\"http://gateway.marvel.com/v1/public/\""
+            buildConfigField "String", "MARVEL_API_URL", "\"https://gateway.marvel.com/v1/public/\""
             buildConfigField "String", "API_PUBLIC_KEY", "\"8f701ad25d3f9dc84edc1058d6a2db81\""
             buildConfigField "String", "API_PRIVATE_KEY", "\"4841a7ba119870268dcdade9d1298aa4cca3c96a\""
         }
@@ -46,7 +46,9 @@ dependencies {
 
     // Network client
     api deps.retrofit.core
+    implementation deps.okhttp.interceptor
     implementation deps.retrofit.rx3adapter
+    implementation deps.retrofit.gsonadapter
 
     // Dependency injection
     implementation deps.hilt.core
@@ -54,6 +56,8 @@ dependencies {
 
     // Rx
     implementation deps.rx.android
+
+    implementation deps.google.gson
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

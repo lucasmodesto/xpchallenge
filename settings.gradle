@@ -1,3 +1,5 @@
+include ':router'
+include ':common'
 rootProject.name='XP Challenge'
 include ':app'
 include ':domain'

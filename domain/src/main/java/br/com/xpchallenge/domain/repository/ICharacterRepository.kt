@@ -5,6 +5,6 @@ import io.reactivex.rxjava3.core.Single
 
 interface ICharacterRepository {
 
-    fun getCharacters(name: String, paginationOffset: Int): Single<List<Character>>
+    fun getCharacters(name: String? = null, paginationOffset: Int? = null): Single<List<Character>>
 
 }
