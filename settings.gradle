@@ -1,0 +1,6 @@
+rootProject.name='XP Challenge'
+include ':app'
+include ':domain'
+include ':data'
+include ':home'
+include ':characterdetail'

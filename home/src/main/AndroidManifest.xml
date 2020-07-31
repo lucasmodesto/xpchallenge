@@ -1,0 +1,12 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="br.com.xpchallenge.home">
+
+    <application>
+
+        <activity
+            android:name=".HomeActivity"
+            android:screenOrientation="fullSensor" />
+
+    </application>
+
+</manifest>

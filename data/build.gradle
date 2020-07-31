@@ -1,0 +1,61 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+
+android {
+    compileSdkVersion versions.compileSdkVersion
+    buildToolsVersion versions.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion versions.minSdkVersion
+        targetSdkVersion versions.targetSdkVersion
+        versionCode versions.versionCode
+        versionName versions.versionName
+    }
+
+    compileOptions {
+        sourceCompatibility versions.javaVersion
+        targetCompatibility versions.javaVersion
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "MARVEL_API_URL", "\"http://gateway.marvel.com/v1/public/\""
+            buildConfigField "String", "API_PUBLIC_KEY", "\"8f701ad25d3f9dc84edc1058d6a2db81\""
+            buildConfigField "String", "API_PRIVATE_KEY", "\"4841a7ba119870268dcdade9d1298aa4cca3c96a\""
+        }
+
+        debug {
+            minifyEnabled false
+            buildConfigField "String", "MARVEL_API_URL", "\"http://gateway.marvel.com/v1/public/\""
+            buildConfigField "String", "API_PUBLIC_KEY", "\"8f701ad25d3f9dc84edc1058d6a2db81\""
+            buildConfigField "String", "API_PRIVATE_KEY", "\"4841a7ba119870268dcdade9d1298aa4cca3c96a\""
+        }
+    }
+}
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation project(":domain")
+
+    // Network client
+    api deps.retrofit.core
+    implementation deps.retrofit.rx3adapter
+
+    // Dependency injection
+    implementation deps.hilt.core
+    kapt deps.hilt.compiler
+
+    // Rx
+    implementation deps.rx.android
+
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
