@@ -1,4 +1,4 @@
-package br.com.xpchallenge.home.search
+package br.com.xpchallenge.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,19 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import br.com.xpchallenge.domain.entity.Character
-import br.com.xpchallenge.home.CharacterAdapter
-import br.com.xpchallenge.home.R
 import br.com.xpchallenge.ui.core.BaseFragment
 import br.com.xpchallenge.ui.recyclerview.GridItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_search_characters.*
+import kotlinx.android.synthetic.main.fragment_favorite_characters.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SearchCharactersFragment : BaseFragment(), SearchCharactersContract.View {
+class FavoriteCharactersFragment : BaseFragment(), HomeContract.View {
 
     @Inject
-    lateinit var presenter: SearchCharactersContract.Presenter
+    lateinit var presenter: HomeContract.Presenter
 
     private val _adapter by lazy { CharacterAdapter() }
 
@@ -27,23 +25,23 @@ class SearchCharactersFragment : BaseFragment(), SearchCharactersContract.View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_search_characters, container, false)
+        return inflater.inflate(R.layout.fragment_favorite_characters, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         presenter.attach(this)
-        presenter.loadCharacters()
+        presenter.loadFavorites()
     }
 
-    override fun onDestroy() {
+    override fun onDestroyView() {
         presenter.detach()
-        super.onDestroy()
+        super.onDestroyView()
     }
 
     private fun setupRecyclerView() {
-        search_characters_recycler_view?.run {
+        favorite_characters_recycler_view?.run {
             layoutManager =
                 GridLayoutManager(context, resources.getInteger(R.integer.grid_span_count))
             adapter = _adapter
@@ -51,7 +49,7 @@ class SearchCharactersFragment : BaseFragment(), SearchCharactersContract.View {
         }
 
         _adapter.onFavoriteItemClick = {
-            presenter.onFavoriteChange(it)
+            presenter.updateFavorite(it)
         }
 
         _adapter.onItemClick = {
@@ -60,6 +58,7 @@ class SearchCharactersFragment : BaseFragment(), SearchCharactersContract.View {
     }
 
     override fun showCharacters(characters: List<Character>) {
+        _adapter.clear()
         _adapter.update(characters)
     }
 }

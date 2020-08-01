@@ -1,13 +1,14 @@
 package br.com.xpchallenge.data.repository
 
 import br.com.xpchallenge.data.CharactersResponse
-import br.com.xpchallenge.data.local.CharacterDBModel
-import br.com.xpchallenge.data.local.dao.ICharacterDAO
+import br.com.xpchallenge.data.local.room.model.CharacterDBModel
+import br.com.xpchallenge.data.local.room.dao.ICharacterDAO
 import br.com.xpchallenge.data.mapper.ICharacterEntityMapper
 import br.com.xpchallenge.data.remote.service.IMarvelService
 import br.com.xpchallenge.domain.entity.Character
 import br.com.xpchallenge.domain.repository.ICharacterRepository
 import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.functions.BiFunction
 import javax.inject.Inject
@@ -32,8 +33,8 @@ class CharacterRepository @Inject constructor(
             })
     }
 
-    override fun getFavoriteCharacters(): Single<List<Character>> {
-        return characterDao.getCharacters().map {
+    override fun getFavoriteCharacters(): Observable<List<Character>> {
+        return characterDao.observeCharacters().map {
             it.map { characterDbModel ->
                 Character(
                     id = characterDbModel.id,

@@ -2,8 +2,7 @@ package br.com.xpchallenge.home
 
 import android.os.Bundle
 import androidx.annotation.VisibleForTesting
-import br.com.xpchallenge.home.favorites.FavoriteCharactersFragment
-import br.com.xpchallenge.home.search.SearchCharactersFragment
+import androidx.fragment.app.Fragment
 import br.com.xpchallenge.ui.core.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_home.*
@@ -31,7 +30,7 @@ class HomeActivity : BaseActivity() {
                 }
             }
             fmTransaction
-                .replace(R.id.home_fragment_container, fragment)
+                .replace(R.id.home_fragment_container, fragment as Fragment)
                 .commit()
             return@setOnNavigationItemSelectedListener true
         }

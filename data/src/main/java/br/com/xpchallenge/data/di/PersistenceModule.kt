@@ -2,8 +2,8 @@ package br.com.xpchallenge.data.di
 
 import android.content.Context
 import androidx.room.Room
-import br.com.xpchallenge.data.local.MarvelAppRoomDatabase
-import br.com.xpchallenge.data.local.dao.ICharacterDAO
+import br.com.xpchallenge.data.local.room.MarvelAppRoomDatabase
+import br.com.xpchallenge.data.local.room.dao.ICharacterDAO
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

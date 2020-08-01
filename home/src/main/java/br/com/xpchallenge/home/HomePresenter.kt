@@ -1,4 +1,4 @@
-package br.com.xpchallenge.home.search
+package br.com.xpchallenge.home
 
 import android.util.Log
 import br.com.xpchallenge.domain.entity.Character
@@ -10,9 +10,10 @@ import io.reactivex.rxjava3.kotlin.subscribeBy
 import javax.inject.Inject
 
 @ActivityRetainedScoped
-class SearchCharactersPresenter @Inject constructor(
+class HomePresenter @Inject constructor(
     private val repository: ICharacterRepository
-) : BasePresenter<SearchCharactersContract.View>(), SearchCharactersContract.Presenter {
+) : BasePresenter<HomeContract.View>(),
+    HomeContract.Presenter {
 
     override fun loadCharacters(search: String?) {
         addDisposable {
@@ -21,7 +22,6 @@ class SearchCharactersPresenter @Inject constructor(
                 .observeOn(schedulersProvider.main())
                 .applyLoadingBehavior(view)
                 .subscribeBy(
-
                     onSuccess = { characters ->
                         view?.showCharacters(characters)
                     },
@@ -34,22 +34,29 @@ class SearchCharactersPresenter @Inject constructor(
         }
     }
 
-    override fun onFavoriteChange(character: Character) {
+    override fun loadFavorites() {
+       addDisposable {
+           repository.getFavoriteCharacters()
+               .subscribeOn(schedulersProvider.io())
+               .observeOn(schedulersProvider.main())
+               .subscribeBy(
+                   onNext = {
+                       view?.showCharacters(it)
+                   },
+
+                   onError = {
+                       // TODO: handle error
+                   }
+               )
+       }
+    }
+
+    override fun updateFavorite(character: Character) {
         addDisposable {
             repository.updateFavorite(character)
                 .subscribeOn(schedulersProvider.io())
                 .observeOn(schedulersProvider.main())
-                .subscribeBy(
-
-                    onComplete = {
-
-                    },
-
-                    onError = {
-
-                    }
-                )
+                .subscribe()
         }
     }
-
 }

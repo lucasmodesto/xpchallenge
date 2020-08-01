@@ -1,17 +1,18 @@
-package br.com.xpchallenge.home.search
+package br.com.xpchallenge.home
 
 import br.com.xpchallenge.domain.entity.Character
 import br.com.xpchallenge.ui.core.BaseView
 import br.com.xpchallenge.ui.core.IBasePresenter
 
-object SearchCharactersContract {
+object HomeContract {
 
-    interface View : BaseView {
+    interface View: BaseView {
         fun showCharacters(characters: List<Character>)
     }
 
-    interface Presenter : IBasePresenter<View> {
+    interface Presenter: IBasePresenter<View> {
         fun loadCharacters(search: String? = null)
-        fun onFavoriteChange(character: Character)
+        fun loadFavorites()
+        fun updateFavorite(character: Character)
     }
 }

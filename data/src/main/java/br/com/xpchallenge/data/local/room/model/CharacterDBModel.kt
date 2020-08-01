@@ -1,4 +1,4 @@
-package br.com.xpchallenge.data.local
+package br.com.xpchallenge.data.local.room.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

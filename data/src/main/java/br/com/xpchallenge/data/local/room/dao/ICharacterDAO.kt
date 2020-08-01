@@ -1,8 +1,9 @@
-package br.com.xpchallenge.data.local.dao
+package br.com.xpchallenge.data.local.room.dao
 
 import androidx.room.*
-import br.com.xpchallenge.data.local.CharacterDBModel
+import br.com.xpchallenge.data.local.room.model.CharacterDBModel
 import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 
 @Dao
@@ -10,6 +11,9 @@ interface ICharacterDAO {
 
     @Query("SELECT * from characters ORDER BY name ASC")
     fun getCharacters(): Single<List<CharacterDBModel>>
+
+    @Query("SELECT * from characters ORDER BY name ASC")
+    fun observeCharacters(): Observable<List<CharacterDBModel>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(character: CharacterDBModel): Completable
