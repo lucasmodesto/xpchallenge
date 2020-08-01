@@ -14,7 +14,7 @@ class SplashActivity : AppCompatActivity() {
 
     @Inject
     @HomeRoute
-    lateinit var route: IRoute<RouteData.WithoutInput>
+    lateinit var route: IRoute<RouteData.WithoutData>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

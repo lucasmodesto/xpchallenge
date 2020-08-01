@@ -15,6 +15,6 @@ abstract class RouterModule {
 
     @Binds
     @HomeRoute
-    abstract fun bindHomeRoute(route: HomeRouter): IRoute<RouteData.WithoutInput>
+    abstract fun bindHomeRoute(route: HomeRouter): IRoute<RouteData.WithoutData>
 
 }
