@@ -1,6 +1,7 @@
 package br.com.xpchallenge.home
 
 import android.os.Bundle
+import androidx.annotation.VisibleForTesting
 import br.com.xpchallenge.home.favorites.FavoriteCharactersFragment
 import br.com.xpchallenge.home.search.SearchCharactersFragment
 import br.com.xpchallenge.ui.core.BaseActivity
@@ -16,6 +17,7 @@ class HomeActivity : BaseActivity() {
         setupBottomNavigation()
     }
 
+    @VisibleForTesting
     fun setupBottomNavigation() {
         home_bottomnavigation?.setOnNavigationItemSelectedListener {
             val fmTransaction = supportFragmentManager.beginTransaction()
@@ -33,7 +35,6 @@ class HomeActivity : BaseActivity() {
                 .commit()
             return@setOnNavigationItemSelectedListener true
         }
-
         home_bottomnavigation?.selectedItemId = R.id.bottom_navigation_search
     }
 

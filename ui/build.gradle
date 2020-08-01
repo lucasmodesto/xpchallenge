@@ -37,6 +37,9 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.3.1'
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation deps.androidx.lifecycle
+    api deps.androidx.constraintlayout
+    api deps.google.material
+    api deps.picasso
 
     // Rx
     implementation deps.rx.android

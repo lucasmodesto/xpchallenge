@@ -1,8 +1,8 @@
 package br.com.xpchallenge.home.search
 
 import android.util.Log
+import br.com.xpchallenge.domain.entity.Character
 import br.com.xpchallenge.domain.repository.ICharacterRepository
-import br.com.xpchallenge.home.CharacterViewObject
 import br.com.xpchallenge.ui.core.BasePresenter
 import br.com.xpchallenge.ui.extensions.applyLoadingBehavior
 import dagger.hilt.android.scopes.ActivityRetainedScoped
@@ -23,22 +23,19 @@ class SearchCharactersPresenter @Inject constructor(
                 .subscribeBy(
 
                     onSuccess = { characters ->
-                        view?.showCharacters(characters.map {
-                            CharacterViewObject(
-                                name = it.name,
-                                imageUrl = it.name,
-                                isFavorite = false
-                            )
-                        })
+                        view?.showCharacters(characters)
                     },
 
-                    onError = {
-                        Log.e(this::class.simpleName, "onError", it)
+                    onError = { error ->
+                        Log.e(this::class.simpleName, "onError", error)
                         // TODO: handle error
                     }
                 )
         }
     }
 
+    override fun onFavoriteChange(character: Character) {
+        // TODO: update room
+    }
 
 }

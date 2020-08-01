@@ -16,10 +16,10 @@ data class CharactersResponse(
         @SerializedName("count") val count: Int,
         @SerializedName("limit") val limit: Int,
         @SerializedName("offset") val offset: Int,
-        @SerializedName("results") val results: List<Result>,
+        @SerializedName("results") val results: List<CharacterResponse>,
         @SerializedName("total") val total: Int
     ) {
-        data class Result(
+        data class CharacterResponse(
             @SerializedName("comics") val comics: Comics,
             @SerializedName("description") val description: String,
             @SerializedName("events") val events: Events,
