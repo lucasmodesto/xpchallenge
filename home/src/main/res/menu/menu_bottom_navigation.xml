@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bottom_navigation_search"
+        android:icon="@drawable/ic_search_bottom_navigation"
+        android:title="Busca" />
+
+    <item
+        android:id="@+id/bottom_navigation_favorite"
+        android:icon="@drawable/ic_favorite_bottom_navigation"
+        android:title="Favoritos" />
+
+</menu>

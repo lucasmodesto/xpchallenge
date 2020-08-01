@@ -27,6 +27,7 @@ class SearchCharactersFragment : BaseFragment(), SearchCharactersContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.attach(this)
+        presenter.loadCharacters()
     }
 
     override fun onDestroy() {

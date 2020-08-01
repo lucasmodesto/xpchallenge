@@ -43,12 +43,14 @@ dependencies {
     implementation project(":ui")
     implementation project(":router")
 
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.3.1'
-    implementation deps.androidx.constraintlayout
+    api 'androidx.appcompat:appcompat:1.1.0'
+    api 'androidx.core:core-ktx:1.3.1'
+    api deps.androidx.constraintlayout
+    api deps.google.material
 
     // Dependency injection
     implementation deps.hilt.core
+
     kapt deps.hilt.compiler
 
     // Rx
