@@ -51,6 +51,11 @@ dependencies {
     implementation deps.hilt.core
     kapt deps.hilt.compiler
 
+    // Local persistence
+    implementation deps.androidx.room.runtime
+    implementation deps.androidx.room.rx3
+    kapt deps.androidx.room.processor
+
     // Features
     implementation project(":home")
     implementation project(":characterdetail")

@@ -13,5 +13,6 @@ ext.versions = [
         javaVersion      : JavaVersion.VERSION_1_8,
         mockk            : '1.10.0',
         espresso         : '3.2.0',
-        gson             : '2.8.6'
+        gson             : '2.8.6',
+        room             : '2.3.0-alpha02'
 ]

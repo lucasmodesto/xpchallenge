@@ -44,6 +44,11 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation project(":domain")
 
+    // Local persistence
+    implementation deps.androidx.room.runtime
+    implementation deps.androidx.room.rx3
+    kapt deps.androidx.room.processor
+
     // Network client
     api deps.retrofit.core
     implementation deps.okhttp.interceptor
@@ -56,8 +61,6 @@ dependencies {
 
     // Rx
     implementation deps.rx.android
-
-    implementation deps.google.gson
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

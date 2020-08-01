@@ -7,19 +7,19 @@ import javax.inject.Inject
 class CharacterEntityMapper @Inject constructor() :
     ICharacterEntityMapper<CharactersResponse.Data.CharacterResponse> {
 
-    override fun map(data: CharactersResponse.Data.CharacterResponse): Character {
+    override fun map(
+        data: CharactersResponse.Data.CharacterResponse,
+        isFavorite: Boolean
+    ): Character {
         return Character(
             id = data.id,
             name = data.name,
             description = data.description,
             imageUrl = formatImageUrl(data.thumbnail),
-            isFavorite = false // TODO
+            isFavorite = isFavorite
         )
     }
 
-    /**
-     *  Wondering if this should be domain or presentation logic, but i guess this should be done server-side
-     */
     private fun formatImageUrl(thumbnail: CharactersResponse.Data.CharacterResponse.Thumbnail): String {
         return thumbnail.path.replace("http://", "https://") + "." + thumbnail.extension
     }

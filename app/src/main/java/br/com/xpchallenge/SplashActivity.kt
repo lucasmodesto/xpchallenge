@@ -23,6 +23,6 @@ class SplashActivity : AppCompatActivity() {
         Handler().postDelayed({
             route.open(context = this)
             finish()
-        }, 800)
+        }, 600)
     }
 }

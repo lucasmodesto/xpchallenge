@@ -35,7 +35,21 @@ class SearchCharactersPresenter @Inject constructor(
     }
 
     override fun onFavoriteChange(character: Character) {
-        // TODO: update room
+        addDisposable {
+            repository.updateFavorite(character)
+                .subscribeOn(schedulersProvider.io())
+                .observeOn(schedulersProvider.main())
+                .subscribeBy(
+
+                    onComplete = {
+
+                    },
+
+                    onError = {
+
+                    }
+                )
+        }
     }
 
 }
