@@ -10,8 +10,9 @@ import br.com.xpchallenge.di.CharacterDetailRoute
 import br.com.xpchallenge.presentation.CharacterViewObject
 import br.com.xpchallenge.router.IRoute
 import br.com.xpchallenge.router.RouteData
-import br.com.xpchallenge.ui.core.BaseFragment
-import br.com.xpchallenge.ui.recyclerview.GridItemDecoration
+import br.com.xpchallenge.presentation.core.BaseFragment
+import br.com.xpchallenge.presentation.extensions.setIsVisible
+import br.com.xpchallenge.presentation.recyclerview.GridItemDecoration
 import com.jakewharton.rxbinding4.appcompat.queryTextChanges
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -120,11 +121,15 @@ class SearchCharactersFragment : BaseFragment(), HomeContract.View {
         _adapter.update(characters)
     }
 
-    override fun clearSearch() {
-        // TODO
-    }
-
     override fun updateFavorites(characters: List<CharacterViewObject>) {
         _adapter.updateFavorites(characters)
+    }
+
+    override fun showEmptyState() {
+        empty_state_textview?.setIsVisible(true)
+    }
+
+    override fun hideEmptyState() {
+        empty_state_textview?.setIsVisible(false)
     }
 }

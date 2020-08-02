@@ -34,8 +34,8 @@ class CharacterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         with(holder.itemView) {
             item_character_name_textview?.text = item.name
             val circularProgressDrawable = CircularProgressDrawable(context).apply {
-                strokeWidth = 5f
-                centerRadius = 30f
+                strokeWidth = 2f
+                centerRadius = 24f
                 start()
             }
 
@@ -70,14 +70,10 @@ class CharacterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         this.notifyDataSetChanged()
     }
 
-    fun updateFavorite(item: CharacterViewObject) {
-        val itemOnList = data.find { it.id == item.id }
-        val itemPosition = data.indexOf(item)
-        itemOnList?.isFavorite = item.isFavorite
-        notifyItemChanged(itemPosition)
-    }
-
     fun updateFavorites(data: List<CharacterViewObject>) {
+        this.data.forEach {
+            it.isFavorite = false
+        }
         data.forEach { updatedItem ->
             val itemOnList = this.data.find { it.id == updatedItem.id }
             itemOnList?.isFavorite = updatedItem.isFavorite
@@ -86,6 +82,5 @@ class CharacterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
-
 
 }

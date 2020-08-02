@@ -1,8 +1,9 @@
-package br.com.xpchallenge.ui.core
+package br.com.xpchallenge.presentation.core
 
 import androidx.fragment.app.Fragment
 
-open class BaseFragment : Fragment(), BaseView {
+open class BaseFragment : Fragment(),
+    BaseView {
 
     private val baseActivity by lazy { activity as? BaseActivity }
 

@@ -5,7 +5,7 @@ import android.os.Handler
 import br.com.xpchallenge.di.HomeRoute
 import br.com.xpchallenge.router.IRoute
 import br.com.xpchallenge.router.RouteData
-import br.com.xpchallenge.ui.core.BaseActivity
+import br.com.xpchallenge.presentation.core.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

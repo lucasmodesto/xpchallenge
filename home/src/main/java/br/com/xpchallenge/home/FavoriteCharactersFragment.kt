@@ -9,8 +9,9 @@ import br.com.xpchallenge.di.CharacterDetailRoute
 import br.com.xpchallenge.presentation.CharacterViewObject
 import br.com.xpchallenge.router.IRoute
 import br.com.xpchallenge.router.RouteData
-import br.com.xpchallenge.ui.core.BaseFragment
-import br.com.xpchallenge.ui.recyclerview.GridItemDecoration
+import br.com.xpchallenge.presentation.core.BaseFragment
+import br.com.xpchallenge.presentation.extensions.setIsVisible
+import br.com.xpchallenge.presentation.recyclerview.GridItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_favorite_characters.*
 import javax.inject.Inject
@@ -40,7 +41,6 @@ class FavoriteCharactersFragment : BaseFragment(), HomeContract.View {
         setupRecyclerView()
         presenter.attach(this)
         presenter.loadFavorites()
-        presenter.subscribeToFavorites()
     }
 
     override fun onDestroyView() {
@@ -73,11 +73,15 @@ class FavoriteCharactersFragment : BaseFragment(), HomeContract.View {
         _adapter.update(characters)
     }
 
-    override fun clearSearch() {
-        // TODO
+    override fun updateFavorites(characters: List<CharacterViewObject>) {
+        // TODO: not needed need refactor
     }
 
-    override fun updateFavorites(characters: List<CharacterViewObject>) {
-        _adapter.updateFavorites(characters)
+    override fun showEmptyState() {
+        favorite_characters_empty_state_view?.setIsVisible(true)
+    }
+
+    override fun hideEmptyState() {
+        favorite_characters_empty_state_view?.setIsVisible(false)
     }
 }

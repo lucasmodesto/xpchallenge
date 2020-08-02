@@ -1,12 +1,18 @@
 package br.com.xpchallenge.data.repository
 
-import br.com.xpchallenge.data.CharactersResponse
+import br.com.xpchallenge.data.remote.model.CharactersResponse
 import br.com.xpchallenge.data.local.room.dao.ICharacterDAO
 import br.com.xpchallenge.data.local.room.model.CharacterDBModel
 import br.com.xpchallenge.data.mapper.ICharacterEntityMapper
+import br.com.xpchallenge.data.mapper.IComicEntityMapper
+import br.com.xpchallenge.data.mapper.ISeriesEntityMapper
+import br.com.xpchallenge.data.remote.model.ComicsResponse
+import br.com.xpchallenge.data.remote.model.SeriesResponse
 import br.com.xpchallenge.data.remote.service.IMarvelService
 import br.com.xpchallenge.domain.entity.Character
+import br.com.xpchallenge.domain.entity.Comic
 import br.com.xpchallenge.domain.entity.GetCharacterResultEntity
+import br.com.xpchallenge.domain.entity.Series
 import br.com.xpchallenge.domain.repository.ICharacterRepository
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
@@ -17,7 +23,9 @@ import javax.inject.Inject
 class CharacterRepository @Inject constructor(
     private val service: IMarvelService,
     private val characterDao: ICharacterDAO,
-    private val mapper: ICharacterEntityMapper<CharactersResponse.Data.CharacterResponse>
+    private val charactersMapper: ICharacterEntityMapper<CharactersResponse.Data.CharacterResponse>,
+    private val comicsMapper: IComicEntityMapper<ComicsResponse.Data.ComicResponse>,
+    private val seriesMapper: ISeriesEntityMapper<SeriesResponse.Data.Result>
 ) : ICharacterRepository {
 
     override fun getCharacters(
@@ -29,7 +37,7 @@ class CharacterRepository @Inject constructor(
             characterDao.getCharacters(),
             BiFunction { apiResponse, favoriteCharacters ->
                 val characters = apiResponse.data.results.map { characterResponse ->
-                    mapper.map(
+                    charactersMapper.map(
                         data = characterResponse,
                         isFavorite = favoriteCharacters.find { it.id == characterResponse.id }?.isFavorite
                             ?: false
@@ -65,6 +73,8 @@ class CharacterRepository @Inject constructor(
                     isFavorite = characterDbModel.isFavorite,
                     isImageAvailable = true
                 )
+            }.filter {
+                it.isFavorite
             }
         }
     }
@@ -79,5 +89,21 @@ class CharacterRepository @Inject constructor(
                 isFavorite = character.isFavorite
             )
         )
+    }
+
+    override fun getComics(id: Int): Single<List<Comic>> {
+        return service.getComics(id).map {
+            it.data.results.map { itemResponse ->
+                comicsMapper.map(itemResponse)
+            }
+        }
+    }
+
+    override fun getSeries(id: Int): Single<List<Series>> {
+        return service.getSeries(id).map {
+            it.data.results.map { itemResponse ->
+                seriesMapper.map(itemResponse)
+            }
+        }
     }
 }

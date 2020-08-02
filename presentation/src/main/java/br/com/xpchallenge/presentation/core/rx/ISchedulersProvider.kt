@@ -1,4 +1,4 @@
-package br.com.xpchallenge.ui.core.rx
+package br.com.xpchallenge.presentation.core.rx
 
 import io.reactivex.rxjava3.core.Scheduler
 

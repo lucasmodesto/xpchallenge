@@ -33,13 +33,13 @@ dependencies {
     implementation project(":domain")
     implementation project(":presentation")
     implementation project(":router")
-    implementation project(":ui")
 
     // Dependency injection
     implementation deps.hilt.core
     kapt deps.hilt.compiler
 
     implementation deps.rx.android
+    implementation deps.rx.kotlin
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

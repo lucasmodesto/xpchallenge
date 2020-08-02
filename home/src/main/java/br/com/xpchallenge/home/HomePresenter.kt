@@ -1,10 +1,9 @@
 package br.com.xpchallenge.home
 
 import br.com.xpchallenge.domain.entity.Character
-import br.com.xpchallenge.domain.repository.ICharacterRepository
 import br.com.xpchallenge.presentation.favorite.FavoritePresenter
 import br.com.xpchallenge.presentation.mapper.ICharacterViewObjectMapper
-import br.com.xpchallenge.ui.extensions.applyLoadingBehavior
+import br.com.xpchallenge.presentation.extensions.applyLoadingBehavior
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
@@ -17,7 +16,6 @@ class HomePresenter @Inject constructor(
 
     private var _paginationOffset = 0
     private var _isLastPage = false
-    private var _characters: MutableList<Character> = mutableListOf()
     private var _loadCharactersDisposable: Disposable? = null
 
     override fun loadCharacters(search: String?) {
@@ -34,10 +32,16 @@ class HomePresenter @Inject constructor(
                 .applyLoadingBehavior(view)
                 .subscribeBy(
                     onSuccess = { result ->
-                        _characters.addAll(result.characters)
+                        if (result.characters.isEmpty()) {
+                            view?.showEmptyState()
+                        } else {
+                            view?.hideEmptyState()
+                        }
                         _paginationOffset += result.count
                         _isLastPage = result.count < PAGINATION_LIMIT
-                        view?.showCharacters(result.characters.map { mapper.map(it) })
+                        view?.showCharacters(result.characters.map { mapper.map(it) }.filter {
+                            it.isImageAvailable
+                        })
                     },
 
                     onError = { error ->
@@ -51,10 +55,14 @@ class HomePresenter @Inject constructor(
     override fun loadFavorites() {
         addDisposable {
             repository.getFavoriteCharacters()
-                .subscribeOn(schedulersProvider.io())
-                .observeOn(schedulersProvider.main())
+                .applyDefaultSchedulers()
                 .subscribeBy(
                     onNext = { characters ->
+                        if (characters.isEmpty()) {
+                            view?.showEmptyState()
+                        } else {
+                            view?.hideEmptyState()
+                        }
                         view?.showCharacters(characters.map { mapper.map(it) })
                     },
 
@@ -66,10 +74,8 @@ class HomePresenter @Inject constructor(
     }
 
     override fun resetPage() {
-        this._characters.clear()
         this._isLastPage = false
         this._paginationOffset = 0
-        view?.clearSearch()
     }
 
     companion object {

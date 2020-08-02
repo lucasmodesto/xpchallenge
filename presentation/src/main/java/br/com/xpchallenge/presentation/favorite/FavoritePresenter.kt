@@ -4,7 +4,7 @@ import br.com.xpchallenge.domain.entity.Character
 import br.com.xpchallenge.domain.repository.ICharacterRepository
 import br.com.xpchallenge.presentation.CharacterViewObject
 import br.com.xpchallenge.presentation.mapper.ICharacterViewObjectMapper
-import br.com.xpchallenge.ui.core.BasePresenter
+import br.com.xpchallenge.presentation.core.BasePresenter
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import javax.inject.Inject
 
@@ -26,19 +26,21 @@ open class FavoritePresenter<T : FavoriteContract.View> :
     }
 
     override fun subscribeToFavorites() {
-        repository.getFavoriteCharacters()
-            .subscribeOn(schedulersProvider.io())
-            .observeOn(schedulersProvider.main())
-            .subscribeBy(
-                onNext = { characters ->
-                    view?.updateFavorites(characters = characters.map {
-                        characterViewObjectMapper.map(it)
-                    })
-                },
+        addDisposable {
+            repository.getFavoriteCharacters()
+                .subscribeOn(schedulersProvider.io())
+                .observeOn(schedulersProvider.main())
+                .subscribeBy(
+                    onNext = { characters ->
+                        view?.updateFavorites(characters = characters.map {
+                            characterViewObjectMapper.map(it)
+                        })
+                    },
 
-                onError = {
-                    handleError(error = it, retryAction = { subscribeToFavorites() })
-                }
-            )
+                    onError = {
+                        handleError(error = it, retryAction = { subscribeToFavorites() })
+                    }
+                )
+        }
     }
 }

@@ -27,7 +27,8 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/character_detail_image_view">
 
@@ -55,12 +56,23 @@
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/character_detail_description_text_view" />
 
+            <ProgressBar
+                android:id="@+id/character_detail_comics_progressbar"
+                style="@style/Widget.AppCompat.ProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/character_detail_comics_text_view" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/character_detail_comics_recycler_view"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/character_detail_comics_text_view" />
 
             <TextView
@@ -75,12 +87,23 @@
                 app:layout_constraintTop_toBottomOf="@id/character_detail_comics_recycler_view"
                 app:layout_goneMarginTop="16dp" />
 
+            <ProgressBar
+                android:id="@+id/character_detail_series_progressbar"
+                style="@style/Widget.AppCompat.ProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/character_detail_series_text_view" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/character_detail_series_recycler_view"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/character_detail_series_text_view" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

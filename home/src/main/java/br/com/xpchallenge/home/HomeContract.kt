@@ -2,14 +2,16 @@ package br.com.xpchallenge.home
 
 import br.com.xpchallenge.presentation.CharacterViewObject
 import br.com.xpchallenge.presentation.favorite.FavoriteContract
-import br.com.xpchallenge.ui.core.BaseView
-import br.com.xpchallenge.ui.core.IBasePresenter
+import br.com.xpchallenge.presentation.core.BaseView
+import br.com.xpchallenge.presentation.core.IBasePresenter
 
 object HomeContract {
 
-    interface View : FavoriteContract.View, BaseView {
+    interface View : FavoriteContract.View,
+        BaseView {
         fun showCharacters(characters: List<CharacterViewObject>)
-        fun clearSearch()
+        fun showEmptyState()
+        fun hideEmptyState()
     }
 
     interface Presenter : IBasePresenter<View>, FavoriteContract.Presenter {

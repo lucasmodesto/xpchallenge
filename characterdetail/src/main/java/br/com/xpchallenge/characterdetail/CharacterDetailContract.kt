@@ -2,19 +2,26 @@ package br.com.xpchallenge.characterdetail
 
 import br.com.xpchallenge.presentation.CharacterViewObject
 import br.com.xpchallenge.presentation.favorite.FavoriteContract
-import br.com.xpchallenge.ui.core.IBasePresenter
+import br.com.xpchallenge.presentation.adapter.MediaViewObject
+import br.com.xpchallenge.presentation.core.IBasePresenter
 
 object CharacterDetailContract {
 
     interface View : FavoriteContract.View {
         fun showDescription(hasDescription: Boolean, description: String)
-        fun showImage(isImageAvailable: Boolean, imageUrl: String)
+        fun showImage(imageUrl: String)
         fun showName(name: String)
+        fun showComics(comics: List<MediaViewObject>)
+        fun showSeries(series: List<MediaViewObject>)
+        fun showComicsLoading()
+        fun hideComicsLoading()
+        fun showSeriesLoading()
+        fun hideSeriesLoading()
     }
 
     interface Presenter : IBasePresenter<View>, FavoriteContract.Presenter {
         fun start(character: CharacterViewObject)
-        fun loadComics(id: String)
-        fun loadSeries(id: String)
+        fun loadComics(id: Int)
+        fun loadSeries(id: Int)
     }
 }

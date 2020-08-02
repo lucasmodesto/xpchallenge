@@ -1,13 +1,16 @@
-package br.com.xpchallenge.ui.core
+package br.com.xpchallenge.presentation.core
 
-import br.com.xpchallenge.ui.R
-import br.com.xpchallenge.ui.core.rx.ISchedulersProvider
+import br.com.xpchallenge.presentation.R
+import br.com.xpchallenge.presentation.core.rx.ISchedulersProvider
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import java.net.UnknownHostException
 import javax.inject.Inject
 
-open class BasePresenter<T : BaseView> : IBasePresenter<T> {
+open class BasePresenter<T : BaseView> :
+    IBasePresenter<T> {
 
     protected var view: T? = null
     private val _compositeDisposable = CompositeDisposable()
@@ -29,12 +32,25 @@ open class BasePresenter<T : BaseView> : IBasePresenter<T> {
     }
 
     override fun handleError(error: Throwable, retryAction: () -> Unit) {
-        val message = when(error) {
+        val message = when (error) {
 
             is UnknownHostException -> R.string.no_internet_message
             else -> R.string.unknown_error_message
         }
         view?.showError(message, retryAction)
     }
+
+    fun <T> Single<T>.applyDefaultSchedulers(): Single<T> {
+        return this
+            .subscribeOn(schedulersProvider.io())
+            .observeOn(schedulersProvider.main())
+    }
+
+    fun <T> Observable<T>.applyDefaultSchedulers(): Observable<T> {
+        return this
+            .subscribeOn(schedulersProvider.io())
+            .observeOn(schedulersProvider.main())
+    }
+
 
 }

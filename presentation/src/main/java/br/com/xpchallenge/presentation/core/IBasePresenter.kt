@@ -1,4 +1,4 @@
-package br.com.xpchallenge.ui.core
+package br.com.xpchallenge.presentation.core
 
 import io.reactivex.rxjava3.disposables.Disposable
 

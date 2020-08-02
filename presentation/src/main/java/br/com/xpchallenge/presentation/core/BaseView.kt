@@ -1,4 +1,4 @@
-package br.com.xpchallenge.ui.core
+package br.com.xpchallenge.presentation.core
 
 
 interface BaseView {

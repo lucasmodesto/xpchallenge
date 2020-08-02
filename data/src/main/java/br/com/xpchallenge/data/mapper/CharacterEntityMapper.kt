@@ -1,6 +1,6 @@
 package br.com.xpchallenge.data.mapper
 
-import br.com.xpchallenge.data.CharactersResponse
+import br.com.xpchallenge.data.remote.model.CharactersResponse
 import br.com.xpchallenge.domain.entity.Character
 import javax.inject.Inject
 

@@ -1,8 +1,8 @@
-package br.com.xpchallenge.ui.core
+package br.com.xpchallenge.presentation.core
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import br.com.xpchallenge.ui.R
+import br.com.xpchallenge.presentation.R
 import com.google.android.material.snackbar.Snackbar
 
 open class BaseActivity : AppCompatActivity(), BaseView {

@@ -1,4 +1,4 @@
-package br.com.xpchallenge.ui.recyclerview
+package br.com.xpchallenge.presentation.recyclerview
 
 import android.graphics.Rect
 import android.view.View

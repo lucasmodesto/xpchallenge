@@ -41,7 +41,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation project(":domain")
     implementation project(":presentation")
-    implementation project(":ui")
     implementation project(":router")
 
     // Dependency injection

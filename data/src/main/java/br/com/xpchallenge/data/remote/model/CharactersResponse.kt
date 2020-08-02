@@ -1,4 +1,4 @@
-package br.com.xpchallenge.data
+package br.com.xpchallenge.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 

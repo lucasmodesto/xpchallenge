@@ -1,10 +1,10 @@
-package br.com.xpchallenge.ui.recyclerview
+package br.com.xpchallenge.presentation.recyclerview
 
 import android.graphics.Rect
 import android.view.View
 import androidx.annotation.DimenRes
 import androidx.recyclerview.widget.RecyclerView
-import br.com.xpchallenge.ui.R
+import br.com.xpchallenge.presentation.R
 
 class HorizontalSpaceItemDecoration(
     @DimenRes private val leftSpacing: Int = R.dimen.zero,

@@ -1,6 +1,6 @@
-package br.com.xpchallenge.ui.extensions
+package br.com.xpchallenge.presentation.extensions
 
-import br.com.xpchallenge.ui.core.BaseView
+import br.com.xpchallenge.presentation.core.BaseView
 import io.reactivex.rxjava3.core.Single
 
 fun <T, R: BaseView> Single<T>.applyLoadingBehavior(view: R?): Single<T> {

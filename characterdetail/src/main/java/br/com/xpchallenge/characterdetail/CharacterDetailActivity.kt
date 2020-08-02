@@ -5,9 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.xpchallenge.presentation.CharacterViewObject
-import br.com.xpchallenge.ui.core.BaseActivity
-import br.com.xpchallenge.ui.extensions.setVisibility
+import br.com.xpchallenge.presentation.adapter.MediaAdapter
+import br.com.xpchallenge.presentation.adapter.MediaViewObject
+import br.com.xpchallenge.presentation.core.BaseActivity
+import br.com.xpchallenge.presentation.extensions.setIsVisible
+import br.com.xpchallenge.presentation.recyclerview.HorizontalSpaceItemDecoration
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_character_detail.*
@@ -45,9 +49,14 @@ class CharacterDetailActivity : BaseActivity(), CharacterDetailContract.View {
         character =
             intent?.extras?.getParcelable(EXTRA_CHARACTER)
                 ?: throw Exception("Required character intent extra")
-        presenter.attach(this)
-        presenter.start(character)
-        presenter.subscribeToFavorites()
+
+        presenter.run {
+            attach(this@CharacterDetailActivity)
+            start(character)
+            subscribeToFavorites()
+            loadComics(character.id)
+            loadSeries(character.id)
+        }
 
         character_detail_favorite_button?.setOnClickListener {
             presenter.toggleFavorite(character)
@@ -60,12 +69,11 @@ class CharacterDetailActivity : BaseActivity(), CharacterDetailContract.View {
     }
 
     override fun showDescription(hasDescription: Boolean, description: String) {
-        character_detail_description_text_view?.setVisibility(hasDescription)
+        character_detail_description_text_view?.setIsVisible(hasDescription)
         character_detail_description_text_view?.text = description
     }
 
-    override fun showImage(isImageAvailable: Boolean, imageUrl: String) {
-        character_detail_image_view.setVisibility(isImageAvailable)
+    override fun showImage(imageUrl: String) {
         val displayMetrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(displayMetrics)
         val screenWidth = displayMetrics.widthPixels
@@ -82,14 +90,6 @@ class CharacterDetailActivity : BaseActivity(), CharacterDetailContract.View {
         }
     }
 
-//    override fun showFavorite(character: CharacterViewObject) {
-//        val image = ContextCompat.getDrawable(
-//            this,
-//            if (character.isFavorite) R.drawable.ic_favorite_on else R.drawable.ic_favorite_off
-//        )
-//        character_detail_favorite_button?.background = image
-//    }
-
     override fun updateFavorites(characters: List<CharacterViewObject>) {
         val item = characters.find { it.id == character.id }
         val isFavorite = item?.isFavorite ?: false
@@ -98,6 +98,51 @@ class CharacterDetailActivity : BaseActivity(), CharacterDetailContract.View {
             if (isFavorite) R.drawable.ic_favorite_on else R.drawable.ic_favorite_off
         )
         character_detail_favorite_button?.background = image
+    }
+
+    override fun showComics(comics: List<MediaViewObject>) {
+        val mediaAdapter = MediaAdapter(comics)
+        character_detail_comics_recycler_view?.run {
+            this.adapter = mediaAdapter
+            layoutManager = LinearLayoutManager(
+                baseContext,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            addItemDecoration(HorizontalSpaceItemDecoration(rightSpacing = R.dimen.default_horizontal_margin))
+            isNestedScrollingEnabled = false
+        }
+    }
+
+    override fun showSeries(series: List<MediaViewObject>) {
+        val mediaAdapter = MediaAdapter(series)
+
+        character_detail_series_recycler_view?.run {
+            adapter = mediaAdapter
+            layoutManager = LinearLayoutManager(
+                baseContext,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            isNestedScrollingEnabled = false
+            addItemDecoration(HorizontalSpaceItemDecoration(rightSpacing = R.dimen.default_horizontal_margin))
+        }
+    }
+
+    override fun showComicsLoading() {
+        character_detail_comics_progressbar?.setIsVisible(true)
+    }
+
+    override fun hideComicsLoading() {
+        character_detail_comics_progressbar?.setIsVisible(false)
+    }
+
+    override fun showSeriesLoading() {
+        character_detail_series_progressbar?.setIsVisible(true)
+    }
+
+    override fun hideSeriesLoading() {
+        character_detail_series_progressbar?.setIsVisible(false)
     }
 
 }

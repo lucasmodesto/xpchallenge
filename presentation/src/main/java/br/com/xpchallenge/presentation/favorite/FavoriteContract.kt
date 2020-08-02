@@ -1,7 +1,7 @@
 package br.com.xpchallenge.presentation.favorite
 
 import br.com.xpchallenge.presentation.CharacterViewObject
-import br.com.xpchallenge.ui.core.BaseView
+import br.com.xpchallenge.presentation.core.BaseView
 
 object FavoriteContract {
 

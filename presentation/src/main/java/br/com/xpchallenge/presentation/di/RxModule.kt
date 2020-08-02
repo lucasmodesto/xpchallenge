@@ -1,7 +1,7 @@
-package br.com.xpchallenge.ui.di
+package br.com.xpchallenge.presentation.di
 
-import br.com.xpchallenge.ui.core.rx.ISchedulersProvider
-import br.com.xpchallenge.ui.core.rx.SchedulersProvider
+import br.com.xpchallenge.presentation.core.rx.ISchedulersProvider
+import br.com.xpchallenge.presentation.core.rx.SchedulersProvider
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
