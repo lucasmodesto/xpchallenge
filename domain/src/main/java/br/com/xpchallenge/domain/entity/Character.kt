@@ -5,5 +5,6 @@ data class Character(
     val name: String,
     val description: String,
     val imageUrl: String,
-    var isFavorite: Boolean
+    var isFavorite: Boolean,
+    val isImageAvailable: Boolean
 )

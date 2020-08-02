@@ -92,7 +92,7 @@ class SearchCharactersFragment : BaseFragment(), HomeContract.View {
         swipe_refresh_layout.setOnRefreshListener {
             _adapter.clear()
             presenter.resetPage()
-            presenter.loadCharacters()
+            presenter.loadCharacters(search = searchview.query.toString().takeIf { it.isNotEmpty() })
         }
     }
 

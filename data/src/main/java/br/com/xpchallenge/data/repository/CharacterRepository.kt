@@ -50,7 +50,8 @@ class CharacterRepository @Inject constructor(
                     name = characterDbModel.name,
                     imageUrl = characterDbModel.imageUrl,
                     description = characterDbModel.description,
-                    isFavorite = characterDbModel.isFavorite
+                    isFavorite = characterDbModel.isFavorite,
+                    isImageAvailable = true
                 )
             }
         }

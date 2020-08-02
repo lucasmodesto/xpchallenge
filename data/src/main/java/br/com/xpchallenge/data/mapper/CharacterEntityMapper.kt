@@ -16,7 +16,8 @@ class CharacterEntityMapper @Inject constructor() :
             name = data.name,
             description = data.description,
             imageUrl = formatImageUrl(data.thumbnail),
-            isFavorite = isFavorite
+            isFavorite = isFavorite,
+            isImageAvailable = !data.thumbnail.path.contains("not_available")
         )
     }
 

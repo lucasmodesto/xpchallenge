@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import br.com.xpchallenge.domain.entity.Character
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_character.view.*
@@ -31,7 +32,16 @@ class CharacterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val item = data[position]
         with(holder.itemView) {
             item_character_name_textview?.text = item.name
-            Picasso.get().load(item.imageUrl).resize(480, 640).centerCrop()
+            val circularProgressDrawable = CircularProgressDrawable(context).apply {
+                strokeWidth = 5f
+                centerRadius = 30f
+                start()
+            }
+
+            Picasso.get()
+                .load(item.imageUrl)
+                .placeholder(circularProgressDrawable)
+                .resize(480, 640).centerCrop()
                 .into(item_character_imageview)
             val favoriteDrawable = if (item.isFavorite) ContextCompat.getDrawable(
                 context,

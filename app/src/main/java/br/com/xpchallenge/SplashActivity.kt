@@ -2,15 +2,15 @@ package br.com.xpchallenge
 
 import android.os.Bundle
 import android.os.Handler
-import androidx.appcompat.app.AppCompatActivity
 import br.com.xpchallenge.di.HomeRoute
 import br.com.xpchallenge.router.IRoute
 import br.com.xpchallenge.router.RouteData
+import br.com.xpchallenge.ui.core.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : BaseActivity() {
 
     @Inject
     @HomeRoute

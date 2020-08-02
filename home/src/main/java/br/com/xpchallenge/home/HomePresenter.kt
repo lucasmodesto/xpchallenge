@@ -18,16 +18,16 @@ class HomePresenter @Inject constructor(
     var paginationOffset = 0
     var isLastPage = false
 
-    private var loadCharactersSubscription: Disposable? = null
+    private var loadCharactersDisposable: Disposable? = null
 
     override fun loadCharacters(search: String?) {
         if (isLastPage) return
 
-        if (loadCharactersSubscription?.isDisposed == false) {
-            loadCharactersSubscription?.dispose()
+        if (loadCharactersDisposable?.isDisposed == false) {
+            loadCharactersDisposable?.dispose()
         }
 
-        loadCharactersSubscription =
+        loadCharactersDisposable =
             repository.getCharacters(name = search, paginationOffset = paginationOffset)
                 .subscribeOn(schedulersProvider.io())
                 .observeOn(schedulersProvider.main())
@@ -44,7 +44,7 @@ class HomePresenter @Inject constructor(
                     }
                 )
 
-        addDisposable { loadCharactersSubscription }
+        addDisposable { loadCharactersDisposable }
     }
 
     override fun loadFavorites() {
@@ -58,9 +58,7 @@ class HomePresenter @Inject constructor(
                     },
 
                     onError = {
-                        view?.showError(message = R.string.no_internet_message, retryAction = {
-                            loadFavorites()
-                        })
+                        handleError(error = it, retryAction = { loadFavorites() })
                     }
                 )
         }
