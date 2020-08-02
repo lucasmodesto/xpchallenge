@@ -7,15 +7,16 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import br.com.xpchallenge.domain.entity.Character
+import br.com.xpchallenge.presentation.CharacterViewObject
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_character.view.*
 
 class CharacterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val data = mutableListOf<Character>()
+    private val data = mutableListOf<CharacterViewObject>()
 
-    var onFavoriteItemClick: (Character) -> Unit = {}
-    var onItemClick: (Character) -> Unit = {}
+    var onFavoriteItemClick: (CharacterViewObject) -> Unit = {}
+    var onItemClick: (CharacterViewObject) -> Unit = {}
     var onLastItemBindListener: () -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -50,9 +51,7 @@ class CharacterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             item_character_favorite_imageview.background = favoriteDrawable
             item_character_favorite_imageview?.setOnClickListener {
-                item.isFavorite = !item.isFavorite
                 onFavoriteItemClick.invoke(item)
-                notifyDataSetChanged()
             }
             setOnClickListener {
                 onItemClick(item)
@@ -60,7 +59,7 @@ class CharacterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    fun update(data: List<Character>) {
+    fun update(data: List<CharacterViewObject>) {
         val currentSize = data.size
         this.data.addAll(data)
         this.notifyItemRangeChanged(currentSize, data.size)
@@ -69,6 +68,21 @@ class CharacterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     fun clear() {
         this.data.clear()
         this.notifyDataSetChanged()
+    }
+
+    fun updateFavorite(item: CharacterViewObject) {
+        val itemOnList = data.find { it.id == item.id }
+        val itemPosition = data.indexOf(item)
+        itemOnList?.isFavorite = item.isFavorite
+        notifyItemChanged(itemPosition)
+    }
+
+    fun updateFavorites(data: List<CharacterViewObject>) {
+        data.forEach { updatedItem ->
+            val itemOnList = this.data.find { it.id == updatedItem.id }
+            itemOnList?.isFavorite = updatedItem.isFavorite
+        }
+        notifyDataSetChanged()
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view)

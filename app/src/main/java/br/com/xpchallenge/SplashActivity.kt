@@ -21,7 +21,7 @@ class SplashActivity : BaseActivity() {
         setContentView(R.layout.activity_splash)
 
         Handler().postDelayed({
-            route.open(context = this)
+            route.open(context = this, parameters = RouteData.WithoutData)
             finish()
         }, 600)
     }

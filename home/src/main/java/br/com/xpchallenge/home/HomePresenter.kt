@@ -2,7 +2,8 @@ package br.com.xpchallenge.home
 
 import br.com.xpchallenge.domain.entity.Character
 import br.com.xpchallenge.domain.repository.ICharacterRepository
-import br.com.xpchallenge.ui.core.BasePresenter
+import br.com.xpchallenge.presentation.favorite.FavoritePresenter
+import br.com.xpchallenge.presentation.mapper.ICharacterViewObjectMapper
 import br.com.xpchallenge.ui.extensions.applyLoadingBehavior
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import io.reactivex.rxjava3.disposables.Disposable
@@ -11,32 +12,32 @@ import javax.inject.Inject
 
 @ActivityRetainedScoped
 class HomePresenter @Inject constructor(
-    private val repository: ICharacterRepository
-) : BasePresenter<HomeContract.View>(),
-    HomeContract.Presenter {
+    private val mapper: ICharacterViewObjectMapper<Character>
+) : FavoritePresenter<HomeContract.View>(), HomeContract.Presenter {
 
-    var paginationOffset = 0
-    var isLastPage = false
-
-    private var loadCharactersDisposable: Disposable? = null
+    private var _paginationOffset = 0
+    private var _isLastPage = false
+    private var _characters: MutableList<Character> = mutableListOf()
+    private var _loadCharactersDisposable: Disposable? = null
 
     override fun loadCharacters(search: String?) {
-        if (isLastPage) return
+        if (_isLastPage) return
 
-        if (loadCharactersDisposable?.isDisposed == false) {
-            loadCharactersDisposable?.dispose()
+        if (_loadCharactersDisposable?.isDisposed == false) {
+            _loadCharactersDisposable?.dispose()
         }
 
-        loadCharactersDisposable =
-            repository.getCharacters(name = search, paginationOffset = paginationOffset)
+        _loadCharactersDisposable =
+            repository.getCharacters(name = search, paginationOffset = _paginationOffset)
                 .subscribeOn(schedulersProvider.io())
                 .observeOn(schedulersProvider.main())
                 .applyLoadingBehavior(view)
                 .subscribeBy(
                     onSuccess = { result ->
-                        paginationOffset += result.count
-                        isLastPage = result.count < PAGINATION_LIMIT
-                        view?.showCharacters(result.characters)
+                        _characters.addAll(result.characters)
+                        _paginationOffset += result.count
+                        _isLastPage = result.count < PAGINATION_LIMIT
+                        view?.showCharacters(result.characters.map { mapper.map(it) })
                     },
 
                     onError = { error ->
@@ -44,7 +45,7 @@ class HomePresenter @Inject constructor(
                     }
                 )
 
-        addDisposable { loadCharactersDisposable }
+        addDisposable { _loadCharactersDisposable }
     }
 
     override fun loadFavorites() {
@@ -53,8 +54,8 @@ class HomePresenter @Inject constructor(
                 .subscribeOn(schedulersProvider.io())
                 .observeOn(schedulersProvider.main())
                 .subscribeBy(
-                    onNext = {
-                        view?.showCharacters(it)
+                    onNext = { characters ->
+                        view?.showCharacters(characters.map { mapper.map(it) })
                     },
 
                     onError = {
@@ -64,18 +65,11 @@ class HomePresenter @Inject constructor(
         }
     }
 
-    override fun updateFavorite(character: Character) {
-        addDisposable {
-            repository.updateFavorite(character)
-                .subscribeOn(schedulersProvider.io())
-                .observeOn(schedulersProvider.main())
-                .subscribe()
-        }
-    }
-
     override fun resetPage() {
-        this.isLastPage = false
-        this.paginationOffset = 0
+        this._characters.clear()
+        this._isLastPage = false
+        this._paginationOffset = 0
+        view?.clearSearch()
     }
 
     companion object {

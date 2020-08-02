@@ -14,7 +14,6 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -40,6 +39,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project (":data")
     implementation project(":domain")
+    implementation project(":presentation")
     implementation project(":router")
     implementation project(":ui")
 

@@ -23,4 +23,7 @@ interface ICharacterDAO {
 
     @Query("DELETE FROM characters WHERE id = :id")
     fun deleteById(id: Int): Completable
+
+    @Query("UPDATE characters SET isFavorite = :isFavorite WHERE id = :id")
+    fun updateFavorite(id: Int, isFavorite: Boolean): Completable
 }

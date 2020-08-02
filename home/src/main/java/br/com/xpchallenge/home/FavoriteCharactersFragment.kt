@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import br.com.xpchallenge.domain.entity.Character
+import br.com.xpchallenge.di.CharacterDetailRoute
+import br.com.xpchallenge.presentation.CharacterViewObject
+import br.com.xpchallenge.router.IRoute
+import br.com.xpchallenge.router.RouteData
 import br.com.xpchallenge.ui.core.BaseFragment
 import br.com.xpchallenge.ui.recyclerview.GridItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,6 +20,10 @@ class FavoriteCharactersFragment : BaseFragment(), HomeContract.View {
 
     @Inject
     lateinit var presenter: HomeContract.Presenter
+
+    @Inject
+    @CharacterDetailRoute
+    lateinit var characterDetailRoute: IRoute<RouteData.CharacterDetailData>
 
     private val _adapter by lazy { CharacterAdapter() }
 
@@ -33,6 +40,7 @@ class FavoriteCharactersFragment : BaseFragment(), HomeContract.View {
         setupRecyclerView()
         presenter.attach(this)
         presenter.loadFavorites()
+        presenter.subscribeToFavorites()
     }
 
     override fun onDestroyView() {
@@ -49,16 +57,27 @@ class FavoriteCharactersFragment : BaseFragment(), HomeContract.View {
         }
 
         _adapter.onFavoriteItemClick = {
-            presenter.updateFavorite(it)
+            presenter.toggleFavorite(it)
         }
 
         _adapter.onItemClick = {
-            // TODO: detail route
+            characterDetailRoute.open(
+                context = context,
+                parameters = RouteData.CharacterDetailData(character = it)
+            )
         }
     }
 
-    override fun showCharacters(characters: List<Character>) {
+    override fun showCharacters(characters: List<CharacterViewObject>) {
         _adapter.clear()
         _adapter.update(characters)
+    }
+
+    override fun clearSearch() {
+        // TODO
+    }
+
+    override fun updateFavorites(characters: List<CharacterViewObject>) {
+        _adapter.updateFavorites(characters)
     }
 }

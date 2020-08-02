@@ -1,8 +1,8 @@
 package br.com.xpchallenge.data.repository
 
 import br.com.xpchallenge.data.CharactersResponse
-import br.com.xpchallenge.data.local.room.model.CharacterDBModel
 import br.com.xpchallenge.data.local.room.dao.ICharacterDAO
+import br.com.xpchallenge.data.local.room.model.CharacterDBModel
 import br.com.xpchallenge.data.mapper.ICharacterEntityMapper
 import br.com.xpchallenge.data.remote.service.IMarvelService
 import br.com.xpchallenge.domain.entity.Character
@@ -24,14 +24,16 @@ class CharacterRepository @Inject constructor(
         name: String?,
         paginationOffset: Int?
     ): Single<GetCharacterResultEntity> {
-        return Single.zip(
+        val loadCharactersSingleZip: Single<GetCharacterResultEntity> = Single.zip(
             service.getCharacters(name = name, offset = paginationOffset),
             characterDao.getCharacters(),
             BiFunction { apiResponse, favoriteCharacters ->
                 val characters = apiResponse.data.results.map { characterResponse ->
                     mapper.map(
                         data = characterResponse,
-                        isFavorite = favoriteCharacters.any { it.id == characterResponse.id })
+                        isFavorite = favoriteCharacters.find { it.id == characterResponse.id }?.isFavorite
+                            ?: false
+                    )
                 }
                 GetCharacterResultEntity(
                     characters = characters,
@@ -40,6 +42,16 @@ class CharacterRepository @Inject constructor(
                     offset = apiResponse.data.offset
                 )
             })
+
+        return loadCharactersSingleZip.flatMap { result ->
+            updateCache(result.characters).toSingleDefault(result)
+        }
+    }
+
+    private fun updateCache(characters: List<Character>): Completable {
+        return Observable.fromIterable(characters).flatMapCompletable {
+            updateFavorite(it)
+        }
     }
 
     override fun getFavoriteCharacters(): Observable<List<Character>> {
@@ -58,18 +70,14 @@ class CharacterRepository @Inject constructor(
     }
 
     override fun updateFavorite(character: Character): Completable {
-        return if (character.isFavorite) {
-            characterDao.insert(
-                CharacterDBModel(
-                    id = character.id,
-                    name = character.name,
-                    description = character.description,
-                    imageUrl = character.imageUrl,
-                    isFavorite = character.isFavorite
-                )
+        return characterDao.insert(
+            CharacterDBModel(
+                id = character.id,
+                name = character.name,
+                description = character.description,
+                imageUrl = character.imageUrl,
+                isFavorite = character.isFavorite
             )
-        } else {
-            characterDao.deleteById(character.id)
-        }
+        )
     }
 }

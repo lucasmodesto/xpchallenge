@@ -9,8 +9,8 @@ import javax.inject.Inject
 
 class HomeRouter @Inject constructor() : IRoute<RouteData.WithoutData> {
 
-    override fun open(context: Context, parameters: RouteData.WithoutData?) {
-        context.startActivity(Intent(context, HomeActivity::class.java))
+    override fun open(context: Context?, parameters: RouteData.WithoutData) {
+        context?.startActivity(Intent(context, HomeActivity::class.java))
     }
 
 }

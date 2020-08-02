@@ -8,11 +8,11 @@ import com.google.android.material.snackbar.Snackbar
 open class BaseActivity : AppCompatActivity(), BaseView {
 
     override fun showLoading() {
-        // TODO
+        // TODO: default loading
     }
 
     override fun hideLoading() {
-        // TODO
+        // TODO: default loading
     }
 
     override fun showError(message: Int, retryAction: () -> Unit) {
@@ -26,5 +26,10 @@ open class BaseActivity : AppCompatActivity(), BaseView {
                     retryAction.invoke()
                 }.show()
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

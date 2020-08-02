@@ -13,6 +13,9 @@ import kotlinx.android.synthetic.main.activity_home.*
 @AndroidEntryPoint
 class HomeActivity : BaseActivity() {
 
+    private val _searchFragment = SearchCharactersFragment()
+    private val _favoriteFragment = FavoriteCharactersFragment()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -23,18 +26,45 @@ class HomeActivity : BaseActivity() {
     fun setupBottomNavigation() {
         home_bottomnavigation?.setOnNavigationItemSelectedListener {
             val fmTransaction = supportFragmentManager.beginTransaction()
-            val fragment: Fragment = when (it.itemId) {
+            when (it.itemId) {
+
                 R.id.bottom_navigation_search -> {
-                    SearchCharactersFragment()
+                    if (supportFragmentManager.findFragmentByTag(_searchFragment::class.simpleName) != null) {
+                        fmTransaction
+                            .show(_searchFragment)
+                            .hide(_favoriteFragment)
+                            .commit()
+                    } else {
+                        fmTransaction
+                            .add(
+                                R.id.home_fragment_container,
+                                _searchFragment,
+                                _searchFragment::class.simpleName
+                            )
+                            .hide(_favoriteFragment)
+                            .commit()
+                    }
                 }
 
                 else -> {
-                    FavoriteCharactersFragment()
+                    if (supportFragmentManager.findFragmentByTag(_favoriteFragment::class.simpleName) != null) {
+                        fmTransaction
+                            .show(_favoriteFragment)
+                            .hide(_searchFragment)
+                            .commit()
+                    } else {
+                        fmTransaction
+                            .add(
+                                R.id.home_fragment_container,
+                                _favoriteFragment,
+                                _searchFragment::class.simpleName
+                            )
+                            .hide(_searchFragment)
+                            .commit()
+                    }
                 }
             }
-            fmTransaction
-                .replace(R.id.home_fragment_container, fragment)
-                .commit()
+
             return@setOnNavigationItemSelectedListener true
         }
         home_bottomnavigation?.selectedItemId = R.id.bottom_navigation_search

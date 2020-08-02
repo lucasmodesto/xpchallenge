@@ -6,7 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import br.com.xpchallenge.domain.entity.Character
+import br.com.xpchallenge.di.CharacterDetailRoute
+import br.com.xpchallenge.presentation.CharacterViewObject
+import br.com.xpchallenge.router.IRoute
+import br.com.xpchallenge.router.RouteData
 import br.com.xpchallenge.ui.core.BaseFragment
 import br.com.xpchallenge.ui.recyclerview.GridItemDecoration
 import com.jakewharton.rxbinding4.appcompat.queryTextChanges
@@ -21,6 +24,10 @@ class SearchCharactersFragment : BaseFragment(), HomeContract.View {
 
     @Inject
     lateinit var presenter: HomeContract.Presenter
+
+    @Inject
+    @CharacterDetailRoute
+    lateinit var characterDetailRoute: IRoute<RouteData.CharacterDetailData>
 
     private val _adapter by lazy { CharacterAdapter() }
 
@@ -39,6 +46,7 @@ class SearchCharactersFragment : BaseFragment(), HomeContract.View {
         setupSwipeRefreshView()
         presenter.attach(this)
         presenter.resetPage()
+        presenter.subscribeToFavorites()
     }
 
     override fun onDestroy() {
@@ -49,11 +57,14 @@ class SearchCharactersFragment : BaseFragment(), HomeContract.View {
     private fun setupRecyclerView() {
         _adapter.run {
             onFavoriteItemClick = {
-                presenter.updateFavorite(it)
+                presenter.toggleFavorite(it)
             }
 
             onItemClick = {
-                // TODO: detail
+                characterDetailRoute.open(
+                    context = context,
+                    parameters = RouteData.CharacterDetailData(character = it)
+                )
             }
         }
 
@@ -92,7 +103,8 @@ class SearchCharactersFragment : BaseFragment(), HomeContract.View {
         swipe_refresh_layout.setOnRefreshListener {
             _adapter.clear()
             presenter.resetPage()
-            presenter.loadCharacters(search = searchview.query.toString().takeIf { it.isNotEmpty() })
+            presenter.loadCharacters(
+                search = searchview.query.toString().takeIf { it.isNotEmpty() })
         }
     }
 
@@ -104,7 +116,15 @@ class SearchCharactersFragment : BaseFragment(), HomeContract.View {
         swipe_refresh_layout.isRefreshing = false
     }
 
-    override fun showCharacters(characters: List<Character>) {
+    override fun showCharacters(characters: List<CharacterViewObject>) {
         _adapter.update(characters)
+    }
+
+    override fun clearSearch() {
+        // TODO
+    }
+
+    override fun updateFavorites(characters: List<CharacterViewObject>) {
+        _adapter.updateFavorites(characters)
     }
 }
