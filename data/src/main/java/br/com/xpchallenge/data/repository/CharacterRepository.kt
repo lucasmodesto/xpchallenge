@@ -6,6 +6,7 @@ import br.com.xpchallenge.data.local.room.dao.ICharacterDAO
 import br.com.xpchallenge.data.mapper.ICharacterEntityMapper
 import br.com.xpchallenge.data.remote.service.IMarvelService
 import br.com.xpchallenge.domain.entity.Character
+import br.com.xpchallenge.domain.entity.GetCharacterResultEntity
 import br.com.xpchallenge.domain.repository.ICharacterRepository
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
@@ -19,7 +20,10 @@ class CharacterRepository @Inject constructor(
     private val mapper: ICharacterEntityMapper<CharactersResponse.Data.CharacterResponse>
 ) : ICharacterRepository {
 
-    override fun getCharacters(name: String?, paginationOffset: Int?): Single<List<Character>> {
+    override fun getCharacters(
+        name: String?,
+        paginationOffset: Int?
+    ): Single<GetCharacterResultEntity> {
         return Single.zip(
             service.getCharacters(name = name, offset = paginationOffset),
             characterDao.getCharacters(),
@@ -29,7 +33,12 @@ class CharacterRepository @Inject constructor(
                         data = characterResponse,
                         isFavorite = favoriteCharacters.any { it.id == characterResponse.id })
                 }
-                characters
+                GetCharacterResultEntity(
+                    characters = characters,
+                    count = apiResponse.data.count,
+                    totalCount = apiResponse.data.total,
+                    offset = apiResponse.data.offset
+                )
             })
     }
 

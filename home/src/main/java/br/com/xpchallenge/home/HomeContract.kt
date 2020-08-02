@@ -14,5 +14,6 @@ object HomeContract {
         fun loadCharacters(search: String? = null)
         fun loadFavorites()
         fun updateFavorite(character: Character)
+        fun resetPage()
     }
 }

@@ -1,11 +1,11 @@
 package br.com.xpchallenge.home
 
-import android.util.Log
 import br.com.xpchallenge.domain.entity.Character
 import br.com.xpchallenge.domain.repository.ICharacterRepository
 import br.com.xpchallenge.ui.core.BasePresenter
 import br.com.xpchallenge.ui.extensions.applyLoadingBehavior
 import dagger.hilt.android.scopes.ActivityRetainedScoped
+import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import javax.inject.Inject
 
@@ -15,40 +15,55 @@ class HomePresenter @Inject constructor(
 ) : BasePresenter<HomeContract.View>(),
     HomeContract.Presenter {
 
+    var paginationOffset = 0
+    var isLastPage = false
+
+    private var loadCharactersSubscription: Disposable? = null
+
     override fun loadCharacters(search: String?) {
-        addDisposable {
-            repository.getCharacters()
+        if (isLastPage) return
+
+        if (loadCharactersSubscription?.isDisposed == false) {
+            loadCharactersSubscription?.dispose()
+        }
+
+        loadCharactersSubscription =
+            repository.getCharacters(name = search, paginationOffset = paginationOffset)
                 .subscribeOn(schedulersProvider.io())
                 .observeOn(schedulersProvider.main())
                 .applyLoadingBehavior(view)
                 .subscribeBy(
-                    onSuccess = { characters ->
-                        view?.showCharacters(characters)
+                    onSuccess = { result ->
+                        paginationOffset += result.count
+                        isLastPage = result.count < PAGINATION_LIMIT
+                        view?.showCharacters(result.characters)
                     },
 
                     onError = { error ->
-                        Log.e(this::class.simpleName, "onError", error)
-                        // TODO: handle error
+                        handleError(error = error, retryAction = { loadCharacters(search) })
                     }
                 )
-        }
+
+        addDisposable { loadCharactersSubscription }
     }
 
     override fun loadFavorites() {
-       addDisposable {
-           repository.getFavoriteCharacters()
-               .subscribeOn(schedulersProvider.io())
-               .observeOn(schedulersProvider.main())
-               .subscribeBy(
-                   onNext = {
-                       view?.showCharacters(it)
-                   },
+        addDisposable {
+            repository.getFavoriteCharacters()
+                .subscribeOn(schedulersProvider.io())
+                .observeOn(schedulersProvider.main())
+                .subscribeBy(
+                    onNext = {
+                        view?.showCharacters(it)
+                    },
 
-                   onError = {
-                       // TODO: handle error
-                   }
-               )
-       }
+                    onError = {
+                        view?.showError(message = R.string.no_internet_message, retryAction = {
+                            loadFavorites()
+                        })
+                    }
+                )
+        }
     }
 
     override fun updateFavorite(character: Character) {
@@ -58,5 +73,14 @@ class HomePresenter @Inject constructor(
                 .observeOn(schedulersProvider.main())
                 .subscribe()
         }
+    }
+
+    override fun resetPage() {
+        this.isLastPage = false
+        this.paginationOffset = 0
+    }
+
+    companion object {
+        private const val PAGINATION_LIMIT = 20
     }
 }

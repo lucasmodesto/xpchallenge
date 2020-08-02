@@ -15,6 +15,7 @@ class CharacterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var onFavoriteItemClick: (Character) -> Unit = {}
     var onItemClick: (Character) -> Unit = {}
+    var onLastItemBindListener: () -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ViewHolder(
@@ -25,10 +26,13 @@ class CharacterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if ((position >= itemCount - 1)) onLastItemBindListener.invoke()
+
         val item = data[position]
         with(holder.itemView) {
             item_character_name_textview?.text = item.name
-            Picasso.get().load(item.imageUrl).resize(480, 640).centerCrop().into(item_character_imageview)
+            Picasso.get().load(item.imageUrl).resize(480, 640).centerCrop()
+                .into(item_character_imageview)
             val favoriteDrawable = if (item.isFavorite) ContextCompat.getDrawable(
                 context,
                 R.drawable.ic_favorite_on

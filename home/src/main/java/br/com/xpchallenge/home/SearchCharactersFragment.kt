@@ -5,11 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import br.com.xpchallenge.domain.entity.Character
 import br.com.xpchallenge.ui.core.BaseFragment
 import br.com.xpchallenge.ui.recyclerview.GridItemDecoration
+import com.jakewharton.rxbinding4.appcompat.queryTextChanges
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_search_characters.*
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -31,8 +35,10 @@ class SearchCharactersFragment : BaseFragment(), HomeContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        setupSearchView()
+        setupSwipeRefreshView()
         presenter.attach(this)
-        presenter.loadCharacters()
+        presenter.resetPage()
     }
 
     override fun onDestroy() {
@@ -41,20 +47,61 @@ class SearchCharactersFragment : BaseFragment(), HomeContract.View {
     }
 
     private fun setupRecyclerView() {
+        _adapter.run {
+            onFavoriteItemClick = {
+                presenter.updateFavorite(it)
+            }
+
+            onItemClick = {
+                // TODO: detail
+            }
+        }
+
         search_characters_recycler_view?.run {
             layoutManager =
                 GridLayoutManager(context, resources.getInteger(R.integer.grid_span_count))
             adapter = _adapter
             addItemDecoration(GridItemDecoration())
-        }
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
-        _adapter.onFavoriteItemClick = {
-            presenter.updateFavorite(it)
-        }
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
 
-        _adapter.onItemClick = {
-            // TODO: detail route
+                    if (!recyclerView.canScrollVertically(1) &&
+                        newState == RecyclerView.SCROLL_STATE_IDLE
+                    ) {
+                        presenter.loadCharacters()
+                    }
+                }
+            })
         }
+    }
+
+    private fun setupSearchView() {
+        searchview.queryTextChanges()
+            .debounce(200, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { text ->
+                _adapter.clear()
+                presenter.resetPage()
+                presenter.loadCharacters(search = text.toString().takeIf { it.isNotEmpty() })
+            }
+    }
+
+    private fun setupSwipeRefreshView() {
+        swipe_refresh_layout.setOnRefreshListener {
+            _adapter.clear()
+            presenter.resetPage()
+            presenter.loadCharacters()
+        }
+    }
+
+    override fun showLoading() {
+        swipe_refresh_layout.isRefreshing = true
+    }
+
+    override fun hideLoading() {
+        swipe_refresh_layout.isRefreshing = false
     }
 
     override fun showCharacters(characters: List<Character>) {
