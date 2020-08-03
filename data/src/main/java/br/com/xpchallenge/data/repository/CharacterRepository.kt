@@ -73,8 +73,8 @@ class CharacterRepository @Inject constructor(
                     isFavorite = characterDbModel.isFavorite,
                     isImageAvailable = true
                 )
-            }.filter {
-                it.isFavorite
+            }.filter { character ->
+                character.isFavorite
             }
         }
     }
