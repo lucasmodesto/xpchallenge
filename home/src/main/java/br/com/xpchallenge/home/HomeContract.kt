@@ -7,8 +7,7 @@ import br.com.xpchallenge.presentation.core.IBasePresenter
 
 object HomeContract {
 
-    interface View : FavoriteContract.View,
-        BaseView {
+    interface View : FavoriteContract.View {
         fun showCharacters(characters: List<CharacterViewObject>)
         fun showEmptyState()
         fun hideEmptyState()

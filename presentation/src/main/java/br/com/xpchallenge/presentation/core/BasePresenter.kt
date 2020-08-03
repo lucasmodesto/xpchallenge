@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 open class BasePresenter<T : BaseView> : IBasePresenter<T> {
 
-    protected var view: T? = null
+    var view: T? = null
     private val _compositeDisposable = CompositeDisposable()
 
     @Inject

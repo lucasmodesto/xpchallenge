@@ -26,34 +26,34 @@ class CharacterRepositoryTest {
     lateinit var repository: CharacterRepository
 
     @MockK
-    lateinit var service: IMarvelService
+    lateinit var serviceMock: IMarvelService
 
     @MockK
-    lateinit var dao: ICharacterDAO
+    lateinit var daoMock: ICharacterDAO
 
     @MockK
-    lateinit var seriesMapper: ISeriesEntityMapper<SeriesResponse.Data.Result>
+    lateinit var seriesMapperMock: ISeriesEntityMapper<SeriesResponse.Data.Result>
 
     @MockK
-    lateinit var comicsMapper: IComicEntityMapper<ComicsResponse.Data.ComicResponse>
+    lateinit var comicsMapperMock: IComicEntityMapper<ComicsResponse.Data.ComicResponse>
 
     @MockK
-    lateinit var characterMapper: ICharacterEntityMapper<CharactersResponse.Data.CharacterResponse>
+    lateinit var characterMapperMock: ICharacterEntityMapper<CharactersResponse.Data.CharacterResponse>
 
     @MockK
-    lateinit var characterRoomMapper: ICharacterEntityMapper<CharacterDBModel>
+    lateinit var characterRoomMapperMock: ICharacterEntityMapper<CharacterDBModel>
 
     @Before
     fun setup() {
         MockKAnnotations.init(this)
 
         repository = CharacterRepository(
-            service = service,
-            characterDao = dao,
-            seriesMapper = seriesMapper,
-            characterResponseMapper = characterMapper,
-            characterRoomMapper = characterRoomMapper,
-            comicsMapper = comicsMapper
+            service = serviceMock,
+            characterDao = daoMock,
+            seriesMapper = seriesMapperMock,
+            characterResponseMapper = characterMapperMock,
+            characterRoomMapper = characterRoomMapperMock,
+            comicsMapper = comicsMapperMock
         )
     }
 
@@ -62,8 +62,8 @@ class CharacterRepositoryTest {
         val roomModel = mockk<CharacterDBModel>()
         val character = mockk<Character>()
         val data = listOf(roomModel)
-        every { dao.observeCharacters() } returns Observable.just(data)
-        every { characterRoomMapper.map(roomModel) } returns character
+        every { daoMock.observeCharacters() } returns Observable.just(data)
+        every { characterRoomMapperMock.map(roomModel) } returns character
 
         repository.getFavoriteCharacters()
             .test()
@@ -74,14 +74,14 @@ class CharacterRepositoryTest {
             }
 
         verify {
-            dao.observeCharacters()
+            daoMock.observeCharacters()
         }
     }
 
     @Test
     fun `get favorites error scenario`() {
         val error = Exception()
-        every { dao.observeCharacters() } returns Observable.error(error)
+        every { daoMock.observeCharacters() } returns Observable.error(error)
 
         repository.getFavoriteCharacters()
             .test()
@@ -89,7 +89,7 @@ class CharacterRepositoryTest {
             .assertError(error)
 
         verify {
-            dao.observeCharacters()
+            daoMock.observeCharacters()
         }
     }
 
@@ -130,7 +130,7 @@ class CharacterRepositoryTest {
         )
 
         every {
-            service.getCharacters(
+            serviceMock.getCharacters(
                 search = search,
                 offset = any(),
                 limit = any(),
@@ -140,8 +140,8 @@ class CharacterRepositoryTest {
             charactersResponseMock
         )
         val favoritesMock = mockk<CharacterDBModel>(relaxed = true)
-        every { dao.getCharacters() } returns Single.just(listOf(favoritesMock))
-        every { characterMapper.map(any()) } returns mockk(relaxed = true)
+        every { daoMock.getCharacters() } returns Single.just(listOf(favoritesMock))
+        every { characterMapperMock.map(any()) } returns mockk(relaxed = true)
 
 
         repository.getCharacters(search)
@@ -150,8 +150,8 @@ class CharacterRepositoryTest {
             .assertComplete()
 
         verify {
-            service.getCharacters(search)
-            dao.getCharacters()
+            serviceMock.getCharacters(search)
+            daoMock.getCharacters()
         }
     }
 
@@ -159,7 +159,7 @@ class CharacterRepositoryTest {
     fun `load characters error scenario`() {
         val error = Exception()
         every {
-            service.getCharacters(
+            serviceMock.getCharacters(
                 search = any(),
                 offset = any(),
                 limit = any(),
@@ -167,7 +167,7 @@ class CharacterRepositoryTest {
             )
         } returns Single.error(error)
 
-        every { dao.getCharacters() } returns Single.just(listOf())
+        every { daoMock.getCharacters() } returns Single.just(listOf())
 
         repository.getCharacters()
             .test()
@@ -175,13 +175,13 @@ class CharacterRepositoryTest {
             .assertError(error)
 
         verify {
-            service.getCharacters()
+            serviceMock.getCharacters()
         }
     }
 
     @Test
     fun `insert favorite success scenario`() {
-        every { dao.insert(any()) } returns Completable.complete()
+        every { daoMock.insert(any()) } returns Completable.complete()
         val character = mockk<Character>(relaxed = true) {
             every { isFavorite } returns true
         }
@@ -192,14 +192,14 @@ class CharacterRepositoryTest {
             .assertComplete()
 
         verify {
-            dao.insert(any())
+            daoMock.insert(any())
         }
     }
 
     @Test
     fun `insert favorite error scenario`() {
         val error = Exception()
-        every { dao.insert(any()) } returns Completable.error(error)
+        every { daoMock.insert(any()) } returns Completable.error(error)
         val character = mockk<Character>(relaxed = true) {
             every { isFavorite } returns true
         }
@@ -210,13 +210,13 @@ class CharacterRepositoryTest {
             .assertError(error)
 
         verify {
-            dao.insert(any())
+            daoMock.insert(any())
         }
     }
 
     @Test
     fun `delete favorite success scenario`() {
-        every { dao.deleteById(any()) } returns Completable.complete()
+        every { daoMock.deleteById(any()) } returns Completable.complete()
         val character = mockk<Character>(relaxed = true) {
             every { isFavorite } returns false
         }
@@ -227,14 +227,14 @@ class CharacterRepositoryTest {
             .assertComplete()
 
         verify {
-            dao.deleteById(any())
+            daoMock.deleteById(any())
         }
     }
 
     @Test
     fun `delete favorite error scenario`() {
         val error = Exception()
-        every { dao.deleteById(any()) } returns Completable.error(error)
+        every { daoMock.deleteById(any()) } returns Completable.error(error)
         val character = mockk<Character>(relaxed = true) {
             every { isFavorite } returns false
         }
@@ -245,7 +245,7 @@ class CharacterRepositoryTest {
             .assertError(error)
 
         verify {
-            dao.deleteById(any())
+            daoMock.deleteById(any())
         }
     }
 
@@ -257,8 +257,8 @@ class CharacterRepositoryTest {
             )
         }
 
-        every { service.getComics(any()) } returns Single.just(data)
-        every { comicsMapper.map(any()) } returns mockk(relaxed = true)
+        every { serviceMock.getComics(any()) } returns Single.just(data)
+        every { comicsMapperMock.map(any()) } returns mockk(relaxed = true)
 
         repository.getComics(1)
             .test()
@@ -266,15 +266,15 @@ class CharacterRepositoryTest {
             .assertNoErrors()
 
         verify {
-            service.getComics(any())
-            comicsMapper.map(any())
+            serviceMock.getComics(any())
+            comicsMapperMock.map(any())
         }
     }
 
     @Test
     fun `get comics error scenario`() {
         val error = Exception()
-        every { service.getComics(any()) } returns Single.error(error)
+        every { serviceMock.getComics(any()) } returns Single.error(error)
 
         repository.getComics(1)
             .test()
@@ -282,7 +282,7 @@ class CharacterRepositoryTest {
             .assertError(error)
 
         verify {
-            service.getComics(any())
+            serviceMock.getComics(any())
         }
     }
 
@@ -294,8 +294,8 @@ class CharacterRepositoryTest {
             )
         }
 
-        every { service.getSeries(any()) } returns Single.just(data)
-        every { seriesMapper.map(any()) } returns mockk(relaxed = true)
+        every { serviceMock.getSeries(any()) } returns Single.just(data)
+        every { seriesMapperMock.map(any()) } returns mockk(relaxed = true)
 
         repository.getSeries(1)
             .test()
@@ -303,15 +303,15 @@ class CharacterRepositoryTest {
             .assertNoErrors()
 
         verify {
-            service.getSeries(any())
-            seriesMapper.map(any())
+            serviceMock.getSeries(any())
+            seriesMapperMock.map(any())
         }
     }
 
     @Test
     fun `get series error scenario`() {
         val error = Exception()
-        every { service.getSeries(any()) } returns Single.error(error)
+        every { serviceMock.getSeries(any()) } returns Single.error(error)
 
         repository.getSeries(1)
             .test()
@@ -319,7 +319,7 @@ class CharacterRepositoryTest {
             .assertError(error)
 
         verify {
-            service.getSeries(any())
+            serviceMock.getSeries(any())
         }
     }
 

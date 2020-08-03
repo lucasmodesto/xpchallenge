@@ -43,7 +43,7 @@ class FavoriteCharactersFragment : BaseFragment(), HomeContract.View {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         presenter.attach(this)
-        presenter.loadFavorites()
+        presenter.loadCharacters()
     }
 
     override fun onDestroyView() {
@@ -77,7 +77,7 @@ class FavoriteCharactersFragment : BaseFragment(), HomeContract.View {
     }
 
     override fun updateFavorites(characters: List<CharacterViewObject>) {
-        // TODO: not needed need refactor
+        showCharacters(characters)
     }
 
     override fun showEmptyState() {

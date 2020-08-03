@@ -1,5 +1,6 @@
 package br.com.xpchallenge.home
 
+import androidx.annotation.VisibleForTesting
 import br.com.xpchallenge.domain.entity.Character
 import br.com.xpchallenge.presentation.favorite.FavoritePresenter
 import br.com.xpchallenge.presentation.mapper.ICharacterViewObjectMapper
@@ -14,26 +15,29 @@ class HomePresenter @Inject constructor(
     private val mapper: ICharacterViewObjectMapper<Character>
 ) : FavoritePresenter<HomeContract.View>(), HomeContract.Presenter {
 
-    private var _paginationOffset = 0
-    private var _isLastPage = false
+    @VisibleForTesting
+    var paginationOffset = 0
+    @VisibleForTesting
+    var isLastPage = false
+
     private var _loadCharactersDisposable: Disposable? = null
 
     override fun loadCharacters(search: String?) {
-        if (_isLastPage) return
+        if (isLastPage) return
 
         if (_loadCharactersDisposable?.isDisposed == false) {
             _loadCharactersDisposable?.dispose()
         }
 
         _loadCharactersDisposable =
-            repository.getCharacters(search = search, paginationOffset = _paginationOffset)
+            repository.getCharacters(search = search, paginationOffset = paginationOffset)
                 .subscribeOn(schedulersProvider.io())
                 .observeOn(schedulersProvider.main())
                 .applyLoadingBehavior(view)
                 .subscribeBy(
                     onSuccess = { result ->
-                        _paginationOffset += result.count
-                        _isLastPage = result.count < PAGINATION_LIMIT
+                        paginationOffset += result.count
+                        isLastPage = result.count < PAGINATION_LIMIT
                         if (result.characters.isEmpty()) {
                             view?.showEmptyState()
                         } else {
@@ -74,8 +78,8 @@ class HomePresenter @Inject constructor(
     }
 
     override fun resetPage() {
-        this._isLastPage = false
-        this._paginationOffset = 0
+        this.isLastPage = false
+        this.paginationOffset = 0
     }
 
     companion object {
