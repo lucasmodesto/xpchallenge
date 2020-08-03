@@ -1,6 +1,6 @@
 # XP Challenge
 
- - MVP with clean architecture project
+ - MVP with clean architecture
  - Multi module hilt app
  
  # Libraries and tools
