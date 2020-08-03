@@ -11,7 +11,7 @@ import dagger.hilt.android.components.ApplicationComponent
 
 @Module
 @InstallIn(ApplicationComponent::class)
-abstract class PresentationBindsModule {
+abstract class MapperModule {
 
     @Binds
     abstract fun bindCharacterViewObjectMapper(mapperImpl: CharacterViewObjectMapper): ICharacterViewObjectMapper<Character>

@@ -1,7 +1,7 @@
 package br.com.xpchallenge.presentation.mapper
 
 import br.com.xpchallenge.domain.entity.Comic
-import br.com.xpchallenge.presentation.adapter.MediaViewObject
+import br.com.xpchallenge.presentation.model.MediaViewObject
 import javax.inject.Inject
 
 class ComicViewObjectMapper @Inject constructor() : IMediaViewObjectMapper<Comic> {

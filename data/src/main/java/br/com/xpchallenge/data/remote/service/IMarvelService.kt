@@ -14,7 +14,7 @@ interface IMarvelService {
 
     @GET("characters")
     fun getCharacters(
-        @Query("nameStartsWith") name: String? = null,
+        @Query("nameStartsWith") search: String? = null,
         @Query("limit") limit: Int = 20,
         @Query("offset") offset: Int? = null,
         @Query("orderBy") orderBy: String = "name"

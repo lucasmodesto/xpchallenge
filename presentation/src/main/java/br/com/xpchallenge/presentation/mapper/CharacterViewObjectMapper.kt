@@ -1,7 +1,7 @@
 package br.com.xpchallenge.presentation.mapper
 
 import br.com.xpchallenge.domain.entity.Character
-import br.com.xpchallenge.presentation.CharacterViewObject
+import br.com.xpchallenge.presentation.model.CharacterViewObject
 import javax.inject.Inject
 
 class CharacterViewObjectMapper @Inject constructor() : ICharacterViewObjectMapper<Character> {

@@ -23,21 +23,22 @@ import javax.inject.Inject
 class CharacterRepository @Inject constructor(
     private val service: IMarvelService,
     private val characterDao: ICharacterDAO,
-    private val charactersMapper: ICharacterEntityMapper<CharactersResponse.Data.CharacterResponse>,
+    private val characterResponseMapper: ICharacterEntityMapper<CharactersResponse.Data.CharacterResponse>,
+    private val characterRoomMapper: ICharacterEntityMapper<CharacterDBModel>,
     private val comicsMapper: IComicEntityMapper<ComicsResponse.Data.ComicResponse>,
     private val seriesMapper: ISeriesEntityMapper<SeriesResponse.Data.Result>
 ) : ICharacterRepository {
 
     override fun getCharacters(
-        name: String?,
+        search: String?,
         paginationOffset: Int?
     ): Single<CharactersResult> {
         return Single.zip(
-            service.getCharacters(name = name, offset = paginationOffset),
+            service.getCharacters(search = search, offset = paginationOffset),
             characterDao.getCharacters(),
             BiFunction { apiResponse, favoriteCharacters ->
                 val characters = apiResponse.data.results.map { characterResponse ->
-                    charactersMapper.map(
+                    characterResponseMapper.map(
                         data = characterResponse,
                         isFavorite = favoriteCharacters.find { it.id == characterResponse.id }?.isFavorite
                             ?: false
@@ -53,17 +54,8 @@ class CharacterRepository @Inject constructor(
     }
 
     override fun getFavoriteCharacters(): Observable<List<Character>> {
-        return characterDao.observeCharacters().map {
-            it.map { characterDbModel ->
-                Character(
-                    id = characterDbModel.id,
-                    name = characterDbModel.name,
-                    imageUrl = characterDbModel.imageUrl,
-                    description = characterDbModel.description,
-                    isFavorite = characterDbModel.isFavorite,
-                    isImageAvailable = true
-                )
-            }
+        return characterDao.observeCharacters().map { characters ->
+            characters.map { characterRoomMapper.map(it) }
         }
     }
 
@@ -75,7 +67,8 @@ class CharacterRepository @Inject constructor(
                     name = character.name,
                     description = character.description,
                     imageUrl = character.imageUrl,
-                    isFavorite = character.isFavorite
+                    isFavorite = character.isFavorite,
+                    isImageAvailable = character.isImageAvailable
                 )
             )
         } else {

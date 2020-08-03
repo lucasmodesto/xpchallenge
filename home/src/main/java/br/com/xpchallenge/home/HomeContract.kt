@@ -1,6 +1,6 @@
 package br.com.xpchallenge.home
 
-import br.com.xpchallenge.presentation.CharacterViewObject
+import br.com.xpchallenge.presentation.model.CharacterViewObject
 import br.com.xpchallenge.presentation.favorite.FavoriteContract
 import br.com.xpchallenge.presentation.core.BaseView
 import br.com.xpchallenge.presentation.core.IBasePresenter

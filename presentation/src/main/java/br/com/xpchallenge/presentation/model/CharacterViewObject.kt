@@ -1,4 +1,4 @@
-package br.com.xpchallenge.presentation
+package br.com.xpchallenge.presentation.model
 
 import android.os.Parcelable
 import br.com.xpchallenge.domain.entity.Character

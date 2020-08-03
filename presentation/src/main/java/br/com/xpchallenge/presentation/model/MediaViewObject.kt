@@ -1,4 +1,4 @@
-package br.com.xpchallenge.presentation.adapter
+package br.com.xpchallenge.presentation.model
 
 data class MediaViewObject(
     val id: Int,

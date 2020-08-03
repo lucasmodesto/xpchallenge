@@ -1,6 +1,6 @@
 package br.com.xpchallenge.presentation.mapper
 
-import br.com.xpchallenge.presentation.CharacterViewObject
+import br.com.xpchallenge.presentation.model.CharacterViewObject
 
 interface ICharacterViewObjectMapper<T> {
 

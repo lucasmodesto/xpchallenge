@@ -1,5 +1,6 @@
 package br.com.xpchallenge.data.remote
 
+import br.com.xpchallenge.data.remote.factory.RxJavaCallAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -27,7 +28,7 @@ object NetworkClientProvider {
             .baseUrl(baseUrl)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+            .addCallAdapterFactory(RxJavaCallAdapterFactory())
             .build()
     }
 

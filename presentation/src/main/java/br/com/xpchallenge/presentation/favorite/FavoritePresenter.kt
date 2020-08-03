@@ -2,7 +2,7 @@ package br.com.xpchallenge.presentation.favorite
 
 import br.com.xpchallenge.domain.entity.Character
 import br.com.xpchallenge.domain.repository.ICharacterRepository
-import br.com.xpchallenge.presentation.CharacterViewObject
+import br.com.xpchallenge.presentation.model.CharacterViewObject
 import br.com.xpchallenge.presentation.mapper.ICharacterViewObjectMapper
 import br.com.xpchallenge.presentation.core.BasePresenter
 import io.reactivex.rxjava3.kotlin.subscribeBy

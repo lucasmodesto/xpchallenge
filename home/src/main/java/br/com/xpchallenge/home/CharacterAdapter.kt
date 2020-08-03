@@ -6,8 +6,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
-import br.com.xpchallenge.domain.entity.Character
-import br.com.xpchallenge.presentation.CharacterViewObject
+import br.com.xpchallenge.presentation.model.CharacterViewObject
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_character.view.*
 

@@ -14,7 +14,7 @@
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="fullSensor"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+            android:theme="@style/Theme.AppCompat.NoActionBar">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

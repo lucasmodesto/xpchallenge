@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="message_retry">Tentar novamente</string>
-    <string name="no_internet_message">Sem conexão a internet</string>
+    <string name="no_internet_message">Sem conexão com a internet</string>
+    <string name="slow_internet_message">Conexão lenta</string>
     <string name="unknown_error_message">Erro ao carregar as informações</string>
 </resources>

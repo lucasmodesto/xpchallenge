@@ -10,5 +10,6 @@ data class CharacterDBModel(
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "description") val description: String,
     @ColumnInfo(name = "image") val imageUrl: String,
-    @ColumnInfo(name = "isFavorite") val isFavorite: Boolean
+    @ColumnInfo(name = "isFavorite") val isFavorite: Boolean,
+    @ColumnInfo(name = "isImageAvailable") val isImageAvailable: Boolean
 )

@@ -2,7 +2,7 @@ package br.com.xpchallenge.characterdetail
 
 import br.com.xpchallenge.domain.entity.Comic
 import br.com.xpchallenge.domain.entity.Series
-import br.com.xpchallenge.presentation.CharacterViewObject
+import br.com.xpchallenge.presentation.model.CharacterViewObject
 import br.com.xpchallenge.presentation.favorite.FavoritePresenter
 import br.com.xpchallenge.presentation.mapper.IMediaViewObjectMapper
 import dagger.hilt.android.scopes.ActivityRetainedScoped

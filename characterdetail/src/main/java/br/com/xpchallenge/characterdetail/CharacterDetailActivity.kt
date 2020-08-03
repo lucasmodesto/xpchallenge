@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import br.com.xpchallenge.presentation.CharacterViewObject
+import br.com.xpchallenge.presentation.model.CharacterViewObject
 import br.com.xpchallenge.presentation.adapter.MediaAdapter
-import br.com.xpchallenge.presentation.adapter.MediaViewObject
+import br.com.xpchallenge.presentation.model.MediaViewObject
 import br.com.xpchallenge.presentation.core.BaseActivity
 import br.com.xpchallenge.presentation.extensions.setIsVisible
 import br.com.xpchallenge.presentation.recyclerview.HorizontalSpaceItemDecoration

@@ -1,16 +1,15 @@
 package br.com.xpchallenge.presentation.core
 
+import br.com.xpchallenge.domain.NetworkError
 import br.com.xpchallenge.presentation.R
 import br.com.xpchallenge.presentation.core.rx.ISchedulersProvider
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
-import java.net.UnknownHostException
 import javax.inject.Inject
 
-open class BasePresenter<T : BaseView> :
-    IBasePresenter<T> {
+open class BasePresenter<T : BaseView> : IBasePresenter<T> {
 
     protected var view: T? = null
     private val _compositeDisposable = CompositeDisposable()
@@ -33,8 +32,8 @@ open class BasePresenter<T : BaseView> :
 
     override fun handleError(error: Throwable, retryAction: () -> Unit) {
         val message = when (error) {
-
-            is UnknownHostException -> R.string.no_internet_message
+            is NetworkError.NotConnected, is NetworkError.Canceled -> R.string.no_internet_message
+            is NetworkError.SlowConnection -> R.string.slow_internet_message
             else -> R.string.unknown_error_message
         }
         view?.showError(message, retryAction)

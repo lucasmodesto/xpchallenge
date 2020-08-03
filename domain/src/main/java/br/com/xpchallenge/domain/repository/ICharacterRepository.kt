@@ -11,7 +11,7 @@ import io.reactivex.rxjava3.core.Single
 interface ICharacterRepository {
 
     fun getCharacters(
-        name: String? = null,
+        search: String? = null,
         paginationOffset: Int? = null
     ): Single<CharactersResult>
 

@@ -26,7 +26,7 @@ class HomePresenter @Inject constructor(
         }
 
         _loadCharactersDisposable =
-            repository.getCharacters(name = search, paginationOffset = _paginationOffset)
+            repository.getCharacters(search = search, paginationOffset = _paginationOffset)
                 .subscribeOn(schedulersProvider.io())
                 .observeOn(schedulersProvider.main())
                 .applyLoadingBehavior(view)

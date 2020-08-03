@@ -1,5 +1,6 @@
 package br.com.xpchallenge.data.di
 
+import br.com.xpchallenge.data.local.room.model.CharacterDBModel
 import br.com.xpchallenge.data.mapper.*
 import br.com.xpchallenge.data.remote.model.CharactersResponse
 import br.com.xpchallenge.data.remote.model.ComicsResponse
@@ -15,6 +16,9 @@ abstract class MapperModule {
 
     @Binds
     abstract fun bindCharacterMapper(mapper: CharacterEntityMapper): ICharacterEntityMapper<CharactersResponse.Data.CharacterResponse>
+
+    @Binds
+    abstract fun bindCharacterDbModelMapper(mapper: RoomCharacterEntityMapper): ICharacterEntityMapper<CharacterDBModel>
 
     @Binds
     abstract fun bindSeriesMapper(mapper: SeriesEntityMapper): ISeriesEntityMapper<SeriesResponse.Data.Result>

@@ -9,7 +9,7 @@ import dagger.hilt.android.components.ApplicationComponent
 
 @Module
 @InstallIn(ApplicationComponent::class)
-abstract class RxModule {
+abstract class ToolsModule {
 
     @Binds
     abstract fun bindSchedulerProvider(schedulersProviderImpl: SchedulersProvider): ISchedulersProvider

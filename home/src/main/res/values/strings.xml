@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_empty_state_message">Nenhum resultado para a pesquisa</string>
+    <string name="favorites_empty_state_message">Você ainda não adicionou nenhum favorito</string>
+</resources>

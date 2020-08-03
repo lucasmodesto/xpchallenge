@@ -1,8 +1,8 @@
 package br.com.xpchallenge.characterdetail
 
-import br.com.xpchallenge.presentation.CharacterViewObject
+import br.com.xpchallenge.presentation.model.CharacterViewObject
 import br.com.xpchallenge.presentation.favorite.FavoriteContract
-import br.com.xpchallenge.presentation.adapter.MediaViewObject
+import br.com.xpchallenge.presentation.model.MediaViewObject
 import br.com.xpchallenge.presentation.core.IBasePresenter
 
 object CharacterDetailContract {

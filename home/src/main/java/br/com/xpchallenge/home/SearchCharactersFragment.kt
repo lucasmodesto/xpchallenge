@@ -4,18 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.xpchallenge.di.CharacterDetailRoute
-import br.com.xpchallenge.presentation.CharacterViewObject
+import br.com.xpchallenge.presentation.model.CharacterViewObject
 import br.com.xpchallenge.router.IRoute
 import br.com.xpchallenge.router.RouteData
 import br.com.xpchallenge.presentation.core.BaseFragment
 import br.com.xpchallenge.presentation.extensions.setIsVisible
 import br.com.xpchallenge.presentation.recyclerview.GridItemDecoration
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding4.appcompat.queryTextChanges
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_search_characters.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -101,7 +105,7 @@ class SearchCharactersFragment : BaseFragment(), HomeContract.View {
     }
 
     private fun setupSwipeRefreshView() {
-        swipe_refresh_layout.setOnRefreshListener {
+        swipe_refresh_layout?.setOnRefreshListener {
             _adapter.clear()
             presenter.resetPage()
             presenter.loadCharacters(
@@ -131,5 +135,18 @@ class SearchCharactersFragment : BaseFragment(), HomeContract.View {
 
     override fun hideEmptyState() {
         empty_state_textview?.setIsVisible(false)
+    }
+
+    override fun showError(message: Int, retryAction: () -> Unit) {
+        context?.let {
+            Snackbar.make(
+                search_fragment_root_viewgroup,
+                message,
+                Snackbar.LENGTH_INDEFINITE
+            ).setActionTextColor(ContextCompat.getColor(it, android.R.color.white))
+                .setAction(getString(R.string.message_retry)) {
+                    retryAction.invoke()
+                }.show()
+        }
     }
 }
