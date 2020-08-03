@@ -1,6 +1,6 @@
 package br.com.xpchallenge.domain.entity
 
-data class GetCharacterResultEntity(
+data class CharactersResult(
     val characters: List<Character>,
     val totalCount: Int,
     val count: Int,
