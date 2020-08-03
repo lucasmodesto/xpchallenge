@@ -1,8 +1,12 @@
 # XP Challenge
-
- - MVP with clean architecture
- - Multi module hilt app
  
+ # Features
+
+- Home screen (Search / Favorites)
+- Detail screen
+- MVP with clean architecture
+- Multi module hilt app
+
  # Libraries and tools
  
 - [OkHttp](https://square.github.io/okhttp/)
@@ -15,11 +19,6 @@
 - [Espresso](https://developer.android.com/training/testing/espresso)
 - [JUnit](https://junit.org/junit5/)
 - [Jacoco](https://github.com/arturdm/jacoco-android-gradle-plugin)
-
-# Features
-
-- Home screen (Search / Favorites)
-- Detail screen
 
 # Screenshots
 
