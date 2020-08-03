@@ -32,7 +32,7 @@ class CharacterRepository @Inject constructor(
         name: String?,
         paginationOffset: Int?
     ): Single<CharactersResult> {
-        val loadCharactersSingleZip: Single<CharactersResult> = Single.zip(
+        return Single.zip(
             service.getCharacters(name = name, offset = paginationOffset),
             characterDao.getCharacters(),
             BiFunction { apiResponse, favoriteCharacters ->
@@ -50,16 +50,6 @@ class CharacterRepository @Inject constructor(
                     offset = apiResponse.data.offset
                 )
             })
-
-        return loadCharactersSingleZip.flatMap { result ->
-            updateCache(result.characters).toSingleDefault(result)
-        }
-    }
-
-    private fun updateCache(characters: List<Character>): Completable {
-        return Observable.fromIterable(characters).flatMapCompletable {
-            updateFavorite(it)
-        }
     }
 
     override fun getFavoriteCharacters(): Observable<List<Character>> {
@@ -73,22 +63,24 @@ class CharacterRepository @Inject constructor(
                     isFavorite = characterDbModel.isFavorite,
                     isImageAvailable = true
                 )
-            }.filter { character ->
-                character.isFavorite
             }
         }
     }
 
     override fun updateFavorite(character: Character): Completable {
-        return characterDao.insert(
-            CharacterDBModel(
-                id = character.id,
-                name = character.name,
-                description = character.description,
-                imageUrl = character.imageUrl,
-                isFavorite = character.isFavorite
+        return if (character.isFavorite) {
+            characterDao.insert(
+                CharacterDBModel(
+                    id = character.id,
+                    name = character.name,
+                    description = character.description,
+                    imageUrl = character.imageUrl,
+                    isFavorite = character.isFavorite
+                )
             )
-        )
+        } else {
+            characterDao.deleteById(character.id)
+        }
     }
 
     override fun getComics(id: Int): Single<List<Comic>> {

@@ -32,16 +32,16 @@ class HomePresenter @Inject constructor(
                 .applyLoadingBehavior(view)
                 .subscribeBy(
                     onSuccess = { result ->
+                        _paginationOffset += result.count
+                        _isLastPage = result.count < PAGINATION_LIMIT
                         if (result.characters.isEmpty()) {
                             view?.showEmptyState()
                         } else {
                             view?.hideEmptyState()
+                            view?.showCharacters(result.characters.map { mapper.map(it) }.filter {
+                                it.isImageAvailable
+                            })
                         }
-                        _paginationOffset += result.count
-                        _isLastPage = result.count < PAGINATION_LIMIT
-                        view?.showCharacters(result.characters.map { mapper.map(it) }.filter {
-                            it.isImageAvailable
-                        })
                     },
 
                     onError = { error ->

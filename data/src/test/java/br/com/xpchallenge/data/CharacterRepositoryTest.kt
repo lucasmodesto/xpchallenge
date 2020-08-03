@@ -52,9 +52,7 @@ class CharacterRepositoryTest {
 
     @Test
     fun `should load favorite characters from cache`() {
-        val data = listOf<CharacterDBModel>(
-            mockk(relaxed = true)
-        )
+        val data = listOf<CharacterDBModel>(mockk(relaxed = true))
         every { dao.observeCharacters() } returns Observable.just(data)
 
         repository.getFavoriteCharacters()
@@ -63,13 +61,12 @@ class CharacterRepositoryTest {
             dao.observeCharacters()
         }
 
-       repository.getFavoriteCharacters()
-           .test()
-           .assertComplete()
-           .assertNoErrors()
-           .assertValue {
-               it.all { character -> character.isFavorite }
-           }
+        repository.getFavoriteCharacters()
+            .test()
+            .assertNoErrors()
+            .assertValue {
+                it.all { character -> character.isFavorite }
+            }
     }
 
 

@@ -4,6 +4,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application>
-        <activity android:name=".CharacterDetailActivity" />
+        <activity
+            android:name=".CharacterDetailActivity"
+            android:screenOrientation="fullSensor" />
+
     </application>
 </manifest>
