@@ -36,7 +36,6 @@ class CharacterDetailActivity : BaseActivity(), CharacterDetailContract.View {
 
     @Inject
     lateinit var presenter: CharacterDetailContract.Presenter
-
     lateinit var character: CharacterViewObject
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -144,5 +143,44 @@ class CharacterDetailActivity : BaseActivity(), CharacterDetailContract.View {
     override fun hideSeriesLoading() {
         character_detail_series_progressbar?.setIsVisible(false)
     }
+
+    override fun showComicsEmptyState() {
+        character_detail_comics_emptystate_view?.setIsVisible(true)
+    }
+
+    override fun hideComicsEmptyState() {
+        character_detail_comics_emptystate_view?.setIsVisible(false)
+    }
+
+    override fun showSeriesEmptyState() {
+        character_detail_series_emptystate_view?.setIsVisible(true)
+    }
+
+    override fun hideSeriesEmptyState() {
+        character_detail_series_emptystate_view?.setIsVisible(false)
+    }
+
+    override fun showComicsErrorState(retryAction: () -> Unit) {
+        character_detail_comics_error_view?.setIsVisible(true)
+        character_detail_comics_retry_button?.setOnClickListener {
+            retryAction.invoke()
+        }
+    }
+
+    override fun hideComicsErrorState() {
+        character_detail_comics_error_view?.setIsVisible(false)
+    }
+
+    override fun showSeriesErrorState(retryAction: () -> Unit) {
+        character_detail_series_error_view?.setIsVisible(true)
+        character_detail_series_retry_button?.setOnClickListener {
+            retryAction.invoke()
+        }
+    }
+
+    override fun hideSeriesErrorState() {
+        character_detail_series_error_view?.setIsVisible(false)
+    }
+
 
 }

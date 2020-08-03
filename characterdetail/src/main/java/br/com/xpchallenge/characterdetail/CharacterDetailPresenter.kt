@@ -28,17 +28,25 @@ class CharacterDetailPresenter @Inject constructor(
         addDisposable {
             repository.getComics(id)
                 .applyDefaultSchedulers()
-                .doOnSubscribe { view?.showComicsLoading() }
+                .doOnSubscribe {
+                    view?.showComicsLoading()
+                    view?.hideComicsErrorState()
+                }
                 .doOnTerminate { view?.hideComicsLoading() }
                 .subscribeBy(
                     onSuccess = {
-                        view?.showComics(it.map { comicsItem -> comicsMapper.map(comicsItem) })
+                        if (it.isEmpty()) {
+                            view?.showComicsEmptyState()
+                        } else {
+                            view?.hideComicsEmptyState()
+                            view?.showComics(it.map { comicsItem -> comicsMapper.map(comicsItem) })
+                        }
                     },
 
                     onError = {
-                        handleError(error = it, retryAction = {
+                        view?.showComicsErrorState {
                             loadComics(id)
-                        })
+                        }
                     }
                 )
         }
@@ -48,17 +56,26 @@ class CharacterDetailPresenter @Inject constructor(
         addDisposable {
             repository.getSeries(id)
                 .applyDefaultSchedulers()
-                .doOnSubscribe { view?.showSeriesLoading() }
+                .doOnSubscribe {
+                    view?.hideSeriesErrorState()
+                    view?.showSeriesLoading()
+                }
                 .doOnTerminate { view?.hideSeriesLoading() }
                 .subscribeBy(
                     onSuccess = {
-                        view?.showSeries(it.map { seriesItem -> seriesMapper.map(seriesItem) })
+                        view?.hideSeriesErrorState()
+                        if (it.isEmpty()) {
+                            view?.showSeriesEmptyState()
+                        } else {
+                            view?.hideSeriesEmptyState()
+                            view?.showSeries(it.map { seriesItem -> seriesMapper.map(seriesItem) })
+                        }
                     },
 
                     onError = {
-                        handleError(error = it, retryAction = {
+                        view?.showSeriesErrorState {
                             loadSeries(id)
-                        })
+                        }
                     }
                 )
         }

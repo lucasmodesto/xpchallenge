@@ -17,6 +17,14 @@ object CharacterDetailContract {
         fun hideComicsLoading()
         fun showSeriesLoading()
         fun hideSeriesLoading()
+        fun showComicsEmptyState()
+        fun hideComicsEmptyState()
+        fun showSeriesEmptyState()
+        fun hideSeriesEmptyState()
+        fun showComicsErrorState(retryAction: () -> Unit)
+        fun showSeriesErrorState(retryAction: () -> Unit)
+        fun hideComicsErrorState()
+        fun hideSeriesErrorState()
     }
 
     interface Presenter : IBasePresenter<View>, FavoriteContract.Presenter {
