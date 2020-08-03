@@ -18,7 +18,7 @@
 - [Mockk](https://mockk.io/)
 - [Espresso](https://developer.android.com/training/testing/espresso)
 - [JUnit](https://junit.org/junit5/)
-- [Jacoco](https://github.com/arturdm/jacoco-android-gradle-plugin)
+- [Jacoco](https://github.com/jacoco/jacoco)
 
 # Screenshots
 
