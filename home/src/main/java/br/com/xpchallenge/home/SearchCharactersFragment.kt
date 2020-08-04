@@ -47,11 +47,6 @@ class SearchCharactersFragment : BaseFragment(), HomeContract.View {
         setupRecyclerView()
         setupSearchView()
         setupSwipeRefreshView()
-
-    }
-
-    override fun onStart() {
-        super.onStart()
         presenter.attach(this)
         presenter.resetPage()
         presenter.loadCharacters()
@@ -101,7 +96,7 @@ class SearchCharactersFragment : BaseFragment(), HomeContract.View {
         searchview.queryTextChanges()
             .debounce(200, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
-            .filter { it.isNotEmpty() }
+            .skip(1)
             .subscribe { text ->
                 _adapter.clear()
                 presenter.resetPage()
