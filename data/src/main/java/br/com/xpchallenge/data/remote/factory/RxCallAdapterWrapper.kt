@@ -1,6 +1,6 @@
 package br.com.xpchallenge.data.remote.factory
 
-import br.com.xpchallenge.domain.NetworkError
+import br.com.xpchallenge.domain.errors.NetworkError
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single

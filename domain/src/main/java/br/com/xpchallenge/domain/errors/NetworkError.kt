@@ -1,4 +1,4 @@
-package br.com.xpchallenge.domain
+package br.com.xpchallenge.domain.errors
 
 sealed class NetworkError : Throwable() {
     class NotConnected : NetworkError()

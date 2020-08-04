@@ -1,6 +1,6 @@
 package br.com.xpchallenge.presentation.core
 
-import br.com.xpchallenge.domain.NetworkError
+import br.com.xpchallenge.domain.errors.NetworkError
 import br.com.xpchallenge.presentation.R
 import br.com.xpchallenge.presentation.core.rx.ISchedulersProvider
 import io.reactivex.rxjava3.core.Observable

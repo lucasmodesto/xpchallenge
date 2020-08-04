@@ -6,7 +6,7 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import br.com.xpchallenge.R
 import br.com.xpchallenge.data.di.RepositoryModule
-import br.com.xpchallenge.domain.NetworkError
+import br.com.xpchallenge.domain.errors.NetworkError
 import br.com.xpchallenge.domain.entity.CharactersResult
 import br.com.xpchallenge.domain.repository.ICharacterRepository
 import br.com.xpchallenge.launchFragmentInHiltContainer
