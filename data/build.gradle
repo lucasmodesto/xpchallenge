@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
+apply from: "$rootDir/jacoco.gradle"
 
 android {
     compileSdkVersion versions.compileSdkVersion
@@ -13,6 +14,8 @@ android {
         targetSdkVersion versions.targetSdkVersion
         versionCode versions.versionCode
         versionName versions.versionName
+        testInstrumentationRunner "br.com.xpchallenge.HiltTestJUnitRunner"
+        testInstrumentationRunnerArguments clearPackageData: 'true'
     }
 
     compileOptions {
@@ -27,6 +30,7 @@ android {
             buildConfigField "String", "MARVEL_API_URL", "\"https://gateway.marvel.com/v1/public/\""
             buildConfigField "String", "API_PUBLIC_KEY", "\"8f701ad25d3f9dc84edc1058d6a2db81\""
             buildConfigField "String", "API_PRIVATE_KEY", "\"4841a7ba119870268dcdade9d1298aa4cca3c96a\""
+            testCoverageEnabled false
         }
 
         debug {
@@ -34,6 +38,7 @@ android {
             buildConfigField "String", "MARVEL_API_URL", "\"https://gateway.marvel.com/v1/public/\""
             buildConfigField "String", "API_PUBLIC_KEY", "\"8f701ad25d3f9dc84edc1058d6a2db81\""
             buildConfigField "String", "API_PRIVATE_KEY", "\"4841a7ba119870268dcdade9d1298aa4cca3c96a\""
+            testCoverageEnabled true
         }
     }
 }

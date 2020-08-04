@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
+apply from: "$rootDir/jacoco.gradle"
 
 android {
     compileSdkVersion versions.compileSdkVersion
@@ -13,18 +14,26 @@ android {
         targetSdkVersion versions.targetSdkVersion
         versionCode versions.versionCode
         versionName versions.versionName
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+        testInstrumentationRunner "br.com.xpchallenge.HiltTestJUnitRunner"
+        testInstrumentationRunnerArguments clearPackageData: 'true'
+
+        compileOptions {
+            sourceCompatibility versions.javaVersion
+            targetCompatibility versions.javaVersion
+        }
     }
 
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            testCoverageEnabled false
         }
 
         debug {
             minifyEnabled false
+            testCoverageEnabled true
         }
     }
 }

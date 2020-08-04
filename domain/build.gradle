@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply from: "$rootDir/jacoco.gradle"
 
 android {
     compileSdkVersion versions.compileSdkVersion
@@ -11,6 +12,8 @@ android {
         targetSdkVersion versions.targetSdkVersion
         versionCode versions.versionCode
         versionName versions.versionName
+        testInstrumentationRunner "br.com.xpchallenge.HiltTestJUnitRunner"
+        testInstrumentationRunnerArguments clearPackageData: 'true'
     }
 
     compileOptions {
@@ -22,10 +25,12 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            testCoverageEnabled false
         }
 
         debug {
             minifyEnabled false
+            testCoverageEnabled true
         }
     }
 }
