@@ -38,8 +38,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility versions.javaVersion
+        targetCompatibility versions.javaVersion
     }
 
 }
@@ -58,14 +58,13 @@ dependencies {
 
     testImplementation deps.test.junit
     testImplementation deps.mockk.core
-    testImplementation deps.mockk.android
     androidTestImplementation deps.androidx.test.core
     androidTestImplementation deps.androidx.test.junit
     androidTestImplementation deps.androidx.test.runner
     androidTestImplementation deps.androidx.test.rules
     androidTestImplementation deps.mockk.android
-    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.28-alpha'
-    kaptAndroidTest 'com.google.dagger:hilt-android-compiler:2.28-alpha'
+    androidTestImplementation deps.hilt.test
+    kaptAndroidTest deps.hilt.compiler
 
     // Espresso
     androidTestImplementation deps.androidx.espresso.core

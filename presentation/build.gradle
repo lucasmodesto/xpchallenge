@@ -27,7 +27,7 @@ android {
     buildTypes {
 
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             testCoverageEnabled false
         }
@@ -63,8 +63,19 @@ dependencies {
     api deps.rx.rxbinding.core
     api deps.rx.rxbinding.appcompat
 
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation deps.test.junit
+    testImplementation deps.mockk.core
+    androidTestImplementation deps.androidx.test.core
+    androidTestImplementation deps.androidx.test.junit
+    androidTestImplementation deps.androidx.test.runner
+    androidTestImplementation deps.androidx.test.rules
+    androidTestImplementation deps.mockk.android
+    androidTestImplementation deps.hilt.test
+    kaptAndroidTest deps.hilt.compiler
 
+    // Espresso
+    androidTestImplementation deps.androidx.espresso.core
+    androidTestImplementation deps.androidx.espresso.contrib
+    androidTestImplementation deps.androidx.espresso.intents
+    androidTestImplementation deps.okhttp.idlingresource
 }

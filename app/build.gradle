@@ -55,7 +55,7 @@ dependencies {
     implementation project(":domain")
     implementation project(":presentation")
     implementation project(":router")
-    debugImplementation 'androidx.fragment:fragment-testing:1.2.5'
+    debugImplementation deps.androidx.test.fragment
 
     // Dependency injection
     implementation deps.hilt.core
@@ -76,8 +76,8 @@ dependencies {
     androidTestImplementation deps.androidx.test.runner
     androidTestImplementation deps.androidx.test.rules
     androidTestImplementation deps.mockk.android
-    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.28-alpha'
-    kaptAndroidTest 'com.google.dagger:hilt-android-compiler:2.28-alpha'
+    androidTestImplementation deps.hilt.test
+    kaptAndroidTest deps.hilt.compiler
 
     // Espresso
     androidTestImplementation deps.androidx.espresso.core
