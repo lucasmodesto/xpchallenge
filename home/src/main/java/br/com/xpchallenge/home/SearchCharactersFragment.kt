@@ -47,8 +47,14 @@ class SearchCharactersFragment : BaseFragment(), HomeContract.View {
         setupRecyclerView()
         setupSearchView()
         setupSwipeRefreshView()
+
+    }
+
+    override fun onStart() {
+        super.onStart()
         presenter.attach(this)
         presenter.resetPage()
+        presenter.loadCharacters()
         presenter.subscribeToFavorites()
     }
 
@@ -95,6 +101,7 @@ class SearchCharactersFragment : BaseFragment(), HomeContract.View {
         searchview.queryTextChanges()
             .debounce(200, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
+            .filter { it.isNotEmpty() }
             .subscribe { text ->
                 _adapter.clear()
                 presenter.resetPage()
@@ -112,11 +119,11 @@ class SearchCharactersFragment : BaseFragment(), HomeContract.View {
     }
 
     override fun showLoading() {
-        swipe_refresh_layout.isRefreshing = true
+        swipe_refresh_layout?.isRefreshing = true
     }
 
     override fun hideLoading() {
-        swipe_refresh_layout.isRefreshing = false
+        swipe_refresh_layout?.isRefreshing = false
     }
 
     override fun showCharacters(characters: List<CharacterViewObject>) {

@@ -28,10 +28,20 @@ android {
         }
     }
 
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+
     compileOptions {
         sourceCompatibility versions.javaVersion
         targetCompatibility versions.javaVersion
     }
+}
+
+hilt {
+    enableTransformForLocalTests = true
 }
 
 dependencies {
@@ -41,6 +51,7 @@ dependencies {
     implementation project(":domain")
     implementation project(":presentation")
     implementation project(":router")
+    debugImplementation 'androidx.fragment:fragment-testing:1.2.5'
 
     // Dependency injection
     implementation deps.hilt.core
@@ -55,6 +66,7 @@ dependencies {
     implementation project(":characterdetail")
 
     testImplementation deps.test.junit
+    testImplementation deps.mockk.core
     androidTestImplementation deps.androidx.test.core
     androidTestImplementation deps.androidx.test.junit
     androidTestImplementation deps.androidx.test.runner
