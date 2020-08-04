@@ -2,8 +2,8 @@ package br.com.xpchallenge.characterdetail.di
 
 import br.com.xpchallenge.characterdetail.router.CharacterDetailRouter
 import br.com.xpchallenge.di.CharacterDetailRoute
+import br.com.xpchallenge.router.CharacterDetailRouteData
 import br.com.xpchallenge.router.IRoute
-import br.com.xpchallenge.router.RouteData
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -15,5 +15,5 @@ abstract class RouterModule {
 
     @Binds
     @CharacterDetailRoute
-    abstract fun bindCharacterDetailRoute(route: CharacterDetailRouter): IRoute<RouteData.CharacterDetailData>
+    abstract fun bindCharacterDetailRoute(route: CharacterDetailRouter): IRoute<CharacterDetailRouteData>
 }

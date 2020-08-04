@@ -10,16 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.xpchallenge.di.CharacterDetailRoute
 import br.com.xpchallenge.presentation.model.CharacterViewObject
 import br.com.xpchallenge.router.IRoute
-import br.com.xpchallenge.router.RouteData
 import br.com.xpchallenge.presentation.core.BaseFragment
 import br.com.xpchallenge.presentation.extensions.setIsVisible
 import br.com.xpchallenge.presentation.recyclerview.GridItemDecoration
-import com.google.android.material.snackbar.BaseTransientBottomBar
+import br.com.xpchallenge.router.CharacterDetailRouteData
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding4.appcompat.queryTextChanges
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_search_characters.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -32,7 +30,7 @@ class SearchCharactersFragment : BaseFragment(), HomeContract.View {
 
     @Inject
     @CharacterDetailRoute
-    lateinit var characterDetailRoute: IRoute<RouteData.CharacterDetailData>
+    lateinit var characterDetailRoute: IRoute<CharacterDetailRouteData>
 
     private val _adapter by lazy { CharacterAdapter() }
 
@@ -68,7 +66,7 @@ class SearchCharactersFragment : BaseFragment(), HomeContract.View {
             onItemClick = {
                 characterDetailRoute.open(
                     context = context,
-                    parameters = RouteData.CharacterDetailData(character = it)
+                    parameters = CharacterDetailRouteData(character = it)
                 )
             }
         }

@@ -14,7 +14,7 @@ android {
         targetSdkVersion versions.targetSdkVersion
         versionCode versions.versionCode
         versionName versions.versionName
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "br.com.xpchallenge.HiltTestJUnitRunner"
     }
 
     buildTypes {
@@ -29,16 +29,15 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility versions.javaVersion
+        targetCompatibility versions.javaVersion
     }
-
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation project (":data")
+    implementation project(":data")
     implementation project(":domain")
     implementation project(":presentation")
     implementation project(":router")
@@ -55,7 +54,18 @@ dependencies {
     implementation project(":home")
     implementation project(":characterdetail")
 
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation deps.test.junit
+    androidTestImplementation deps.androidx.test.core
+    androidTestImplementation deps.androidx.test.junit
+    androidTestImplementation deps.androidx.test.runner
+    androidTestImplementation deps.androidx.test.rules
+    androidTestImplementation deps.mockk.android
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.28-alpha'
+    kaptAndroidTest 'com.google.dagger:hilt-android-compiler:2.28-alpha'
+
+    // Espresso
+    androidTestImplementation deps.androidx.espresso.core
+    androidTestImplementation deps.androidx.espresso.contrib
+    androidTestImplementation deps.androidx.espresso.intents
+    androidTestImplementation deps.okhttp.idlingresource
 }

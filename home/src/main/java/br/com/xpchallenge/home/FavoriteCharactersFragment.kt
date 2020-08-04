@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import br.com.xpchallenge.di.CharacterDetailRoute
 import br.com.xpchallenge.presentation.model.CharacterViewObject
 import br.com.xpchallenge.router.IRoute
-import br.com.xpchallenge.router.RouteData
 import br.com.xpchallenge.presentation.core.BaseFragment
 import br.com.xpchallenge.presentation.extensions.setIsVisible
 import br.com.xpchallenge.presentation.recyclerview.GridItemDecoration
+import br.com.xpchallenge.router.CharacterDetailRouteData
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_favorite_characters.*
@@ -27,7 +27,7 @@ class FavoriteCharactersFragment : BaseFragment(), HomeContract.View {
 
     @Inject
     @CharacterDetailRoute
-    lateinit var characterDetailRoute: IRoute<RouteData.CharacterDetailData>
+    lateinit var characterDetailRoute: IRoute<CharacterDetailRouteData>
 
     private val _adapter by lazy { CharacterAdapter() }
 
@@ -66,7 +66,7 @@ class FavoriteCharactersFragment : BaseFragment(), HomeContract.View {
         _adapter.onItemClick = {
             characterDetailRoute.open(
                 context = context,
-                parameters = RouteData.CharacterDetailData(character = it)
+                parameters = CharacterDetailRouteData(character = it)
             )
         }
     }
