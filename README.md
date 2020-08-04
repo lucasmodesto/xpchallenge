@@ -1,5 +1,4 @@
 # XP Challenge
- [![CircleCI](https://circleci.com/gh/lucasmodesto/xpchallenge.svg?style=svg)](https://circleci.com/gh/lucasmodesto/xpchallenge)
 
  # Features
 
