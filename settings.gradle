@@ -1,6 +1,6 @@
-include ':presentation'
 rootProject.name='XP Challenge'
 include ':app'
+include ':presentation'
 include ':domain'
 include ':data'
 include ':router'
