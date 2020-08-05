@@ -1,9 +1,9 @@
 # XP Challenge
- Android Hilt Playground with MVP Clean Architecture Multi-module app
+ Android Hilt playground with MVP clean architecture Multi-module app
  
  # Features
 - Home screen (Search Characters / Favorites)
-- Detail screen
+- Detail screen (Comics & Series)
 
  # Libraries and tools
 - [OkHttp](https://square.github.io/okhttp/)
