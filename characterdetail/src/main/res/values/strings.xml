@@ -3,7 +3,7 @@
     <string name="comics">Comics</string>
     <string name="empty_state_media_message">Sem registros</string>
     <string name="try_again">Tentar novamente</string>
-    <string name="series_load_error">Erro ao carregar comics</string>
+    <string name="series_load_error">Erro ao carregar series</string>
     <string name="comics_load_error">Erro ao carregar comics</string>
     <string name="series">Series</string>
 </resources>

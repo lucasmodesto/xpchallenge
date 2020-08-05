@@ -1,21 +1,25 @@
 package br.com.xpchallenge.home
 
-import br.com.xpchallenge.presentation.model.CharacterViewObject
-import br.com.xpchallenge.presentation.favorite.FavoriteContract
-import br.com.xpchallenge.presentation.core.BaseView
 import br.com.xpchallenge.presentation.core.IBasePresenter
+import br.com.xpchallenge.presentation.favorite.FavoriteContract
+import br.com.xpchallenge.presentation.model.CharacterViewObject
 
 object HomeContract {
 
-    interface View : FavoriteContract.View {
+    interface SearchCharactersView : FavoriteContract.View {
+        fun showLoading()
+        fun hideLoading()
         fun showCharacters(characters: List<CharacterViewObject>)
         fun showEmptyState()
         fun hideEmptyState()
     }
 
-    interface Presenter : IBasePresenter<View>, FavoriteContract.Presenter {
-        fun loadCharacters(search: String? = null)
-        fun loadFavorites()
+    interface FavoritesView : FavoriteContract.View
+
+    interface SearchCharactersPresenter : IBasePresenter<SearchCharactersView>, FavoriteContract.Presenter {
+        fun loadCharacters(query: String? = null)
         fun resetPage()
     }
+
+    interface FavoritesPresenter : IBasePresenter<FavoritesView>, FavoriteContract.Presenter
 }

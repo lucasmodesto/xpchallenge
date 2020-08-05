@@ -41,14 +41,5 @@ class MediaAdapter(private val data: List<MediaViewObject>) : RecyclerView.Adapt
         }
     }
 
-//    fun update(data: List<MediaViewObject>) {
-//        this.data.addAll(data)
-//        notifyDataSetChanged()
-//    }
-//
-//    fun setData(data: List<MediaViewObject>) {
-//        this.data.addAll(data)
-//    }
-
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }

@@ -20,10 +20,10 @@ import kotlinx.android.synthetic.main.fragment_search_characters.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class FavoriteCharactersFragment : BaseFragment(), HomeContract.View {
+class FavoriteCharactersFragment : BaseFragment(), HomeContract.FavoritesView {
 
     @Inject
-    lateinit var presenter: HomeContract.Presenter
+    lateinit var presenter: HomeContract.FavoritesPresenter
 
     @Inject
     @CharacterDetailRoute
@@ -43,7 +43,7 @@ class FavoriteCharactersFragment : BaseFragment(), HomeContract.View {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         presenter.attach(this)
-        presenter.loadFavorites()
+        presenter.subscribeToFavorites()
     }
 
     override fun onDestroyView() {
@@ -71,20 +71,16 @@ class FavoriteCharactersFragment : BaseFragment(), HomeContract.View {
         }
     }
 
-    override fun showCharacters(characters: List<CharacterViewObject>) {
+    override fun updateFavorites(characters: List<CharacterViewObject>) {
         _adapter.clear()
         _adapter.update(characters)
     }
 
-    override fun updateFavorites(characters: List<CharacterViewObject>) {
-        showCharacters(characters)
-    }
-
-    override fun showEmptyState() {
+    override fun showEmptyFavorites() {
         favorite_characters_empty_state_view?.setIsVisible(true)
     }
 
-    override fun hideEmptyState() {
+    override fun hideEmptyFavorites() {
         favorite_characters_empty_state_view?.setIsVisible(false)
     }
 

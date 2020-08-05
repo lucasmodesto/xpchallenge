@@ -7,6 +7,8 @@ object FavoriteContract {
 
     interface View : BaseView {
         fun updateFavorites(characters: List<CharacterViewObject>)
+        fun showEmptyFavorites()
+        fun hideEmptyFavorites()
     }
 
     interface Presenter {

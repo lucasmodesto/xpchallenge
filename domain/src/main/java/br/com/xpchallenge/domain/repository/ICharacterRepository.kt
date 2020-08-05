@@ -11,8 +11,8 @@ import io.reactivex.rxjava3.core.Single
 interface ICharacterRepository {
 
     fun getCharacters(
-        search: String? = null,
-        paginationOffset: Int? = null
+        query: String? = null,
+        paginationOffset: Int
     ): Single<CharactersResult>
 
     fun getFavoriteCharacters(): Observable<List<Character>>

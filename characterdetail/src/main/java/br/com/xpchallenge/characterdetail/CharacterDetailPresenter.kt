@@ -2,9 +2,10 @@ package br.com.xpchallenge.characterdetail
 
 import br.com.xpchallenge.domain.entity.Comic
 import br.com.xpchallenge.domain.entity.Series
-import br.com.xpchallenge.presentation.model.CharacterViewObject
+import br.com.xpchallenge.domain.errors.NetworkError
 import br.com.xpchallenge.presentation.favorite.FavoritePresenter
 import br.com.xpchallenge.presentation.mapper.IMediaViewObjectMapper
+import br.com.xpchallenge.presentation.model.CharacterViewObject
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import javax.inject.Inject
@@ -44,9 +45,12 @@ class CharacterDetailPresenter @Inject constructor(
                     },
 
                     onError = {
-                        view?.showComicsErrorState {
+                        view?.showComicsErrorState(messageId = when (it) {
+                            is NetworkError.NotConnected -> R.string.no_internet_message
+                            else -> R.string.comics_load_error
+                        }, retryAction = {
                             loadComics(id)
-                        }
+                        })
                     }
                 )
         }
@@ -73,9 +77,12 @@ class CharacterDetailPresenter @Inject constructor(
                     },
 
                     onError = {
-                        view?.showSeriesErrorState {
+                        view?.showSeriesErrorState(messageId = when (it) {
+                            is NetworkError.NotConnected -> R.string.no_internet_message
+                            else -> R.string.series_load_error
+                        }, retryAction = {
                             loadSeries(id)
-                        }
+                        })
                     }
                 )
         }

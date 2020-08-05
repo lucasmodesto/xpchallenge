@@ -23,10 +23,10 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SearchCharactersFragment : BaseFragment(), HomeContract.View {
+class SearchCharactersFragment : BaseFragment(), HomeContract.SearchCharactersView {
 
     @Inject
-    lateinit var presenter: HomeContract.Presenter
+    lateinit var presenter: HomeContract.SearchCharactersPresenter
 
     @Inject
     @CharacterDetailRoute
@@ -100,7 +100,7 @@ class SearchCharactersFragment : BaseFragment(), HomeContract.View {
             .subscribe { text ->
                 _adapter.clear()
                 presenter.resetPage()
-                presenter.loadCharacters(search = text.toString().takeIf { it.isNotEmpty() })
+                presenter.loadCharacters(query = text.toString().takeIf { it.isNotEmpty() })
             }
     }
 
@@ -109,7 +109,7 @@ class SearchCharactersFragment : BaseFragment(), HomeContract.View {
             _adapter.clear()
             presenter.resetPage()
             presenter.loadCharacters(
-                search = searchview.query.toString().takeIf { it.isNotEmpty() })
+                query = searchview.query.toString().takeIf { it.isNotEmpty() })
         }
     }
 
@@ -127,6 +127,14 @@ class SearchCharactersFragment : BaseFragment(), HomeContract.View {
 
     override fun updateFavorites(characters: List<CharacterViewObject>) {
         _adapter.updateFavorites(characters)
+    }
+
+    override fun showEmptyFavorites() {
+        // Not applied to this view as it just need to update favorites
+    }
+
+    override fun hideEmptyFavorites() {
+        // Not applied to this view as it just need to update favorites
     }
 
     override fun showEmptyState() {

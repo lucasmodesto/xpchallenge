@@ -30,11 +30,11 @@ class CharacterRepository @Inject constructor(
 ) : ICharacterRepository {
 
     override fun getCharacters(
-        search: String?,
-        paginationOffset: Int?
+        query: String?,
+        paginationOffset: Int
     ): Single<CharactersResult> {
         return Single.zip(
-            service.getCharacters(search = search, offset = paginationOffset),
+            service.getCharacters(search = query, offset = paginationOffset),
             characterDao.getCharacters(),
             BiFunction { apiResponse, favoriteCharacters ->
                 val characters = apiResponse.data.results.map { characterResponse ->

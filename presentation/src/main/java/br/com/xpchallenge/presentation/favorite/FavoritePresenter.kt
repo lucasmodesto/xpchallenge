@@ -32,6 +32,11 @@ open class FavoritePresenter<T : FavoriteContract.View> :
                 .observeOn(schedulersProvider.main())
                 .subscribeBy(
                     onNext = { characters ->
+                        if (characters.isEmpty()) {
+                            view?.showEmptyFavorites()
+                        } else {
+                            view?.hideEmptyFavorites()
+                        }
                         view?.updateFavorites(characters = characters.map {
                             characterViewObjectMapper.map(it)
                         })

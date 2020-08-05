@@ -21,8 +21,8 @@ object CharacterDetailContract {
         fun hideComicsEmptyState()
         fun showSeriesEmptyState()
         fun hideSeriesEmptyState()
-        fun showComicsErrorState(retryAction: () -> Unit)
-        fun showSeriesErrorState(retryAction: () -> Unit)
+        fun showComicsErrorState(messageId: Int,retryAction: () -> Unit)
+        fun showSeriesErrorState(messageId: Int, retryAction: () -> Unit)
         fun hideComicsErrorState()
         fun hideSeriesErrorState()
     }

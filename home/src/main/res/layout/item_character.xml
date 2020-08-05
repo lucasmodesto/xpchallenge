@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        tools:src="@drawable/ic_marvel_logo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_marvel_logo" />
 
     <ImageView
         android:id="@+id/item_character_favorite_imageview"
@@ -36,8 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:gravity="center"
-            android:textAlignment="center"
             android:singleLine="true"
+            android:textAlignment="center"
             android:textColor="#FFF"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"

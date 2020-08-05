@@ -12,9 +12,9 @@ import org.junit.Before
 import org.junit.Test
 import kotlin.Exception
 
-class HomePresenterTest {
+class SearchCharactersPresenterTest {
 
-    lateinit var presenter: HomePresenter
+    private lateinit var presenter: SearchCharactersPresenter
 
     @MockK
     lateinit var mapperMock: ICharacterViewObjectMapper<Character>
@@ -23,16 +23,16 @@ class HomePresenterTest {
     lateinit var repositoryMock: ICharacterRepository
 
     @MockK
-    lateinit var viewMock: HomeContract.View
+    lateinit var viewMock: HomeContract.SearchCharactersView
 
     @Before
     fun setup() {
         MockKAnnotations.init(this, relaxUnitFun = true)
-        presenter = HomePresenter(
-            mapper = mapperMock
+        presenter = SearchCharactersPresenter(
         ).apply {
             view = viewMock
             repository = repositoryMock
+            characterViewObjectMapper = mapperMock
             schedulersProvider = TestSchedulerProvider()
         }
     }
@@ -126,10 +126,10 @@ class HomePresenterTest {
         every { repositoryMock.getFavoriteCharacters() } returns Observable.just(listOf(mockk()))
         every { mapperMock.map(any()) } returns mockk(relaxed = true)
 
-        presenter.loadFavorites()
+        presenter.subscribeToFavorites()
 
         verify {
-            viewMock.showCharacters(any())
+            viewMock.updateFavorites(any())
             mapperMock.map(any())
         }
 
@@ -142,14 +142,14 @@ class HomePresenterTest {
     fun `load favorites error scenario`() {
         every { repositoryMock.getFavoriteCharacters() } returns Observable.error(Exception())
 
-        presenter.loadFavorites()
+        presenter.subscribeToFavorites()
 
         verify {
             viewMock.showError(any(), any())
         }
 
         verify(exactly = 0) {
-            viewMock.showCharacters(any())
+            viewMock.updateFavorites(any())
         }
     }
 

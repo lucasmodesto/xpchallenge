@@ -7,14 +7,6 @@ import com.google.android.material.snackbar.Snackbar
 
 open class BaseActivity : AppCompatActivity(), BaseView {
 
-    override fun showLoading() {
-        // TODO: default loading view
-    }
-
-    override fun hideLoading() {
-        // TODO: default loading view
-    }
-
     override fun showError(message: Int, retryAction: () -> Unit) {
         if (!isFinishing) {
             Snackbar.make(

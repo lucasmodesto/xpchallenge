@@ -34,9 +34,10 @@ class CharacterDetailActivity : BaseActivity(), CharacterDetailContract.View {
         }
     }
 
+    private lateinit var character: CharacterViewObject
+
     @Inject
     lateinit var presenter: CharacterDetailContract.Presenter
-    lateinit var character: CharacterViewObject
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,9 +46,8 @@ class CharacterDetailActivity : BaseActivity(), CharacterDetailContract.View {
             setDisplayShowHomeEnabled(true)
             setDisplayHomeAsUpEnabled(true)
         }
-        character =
-            intent?.extras?.getParcelable(EXTRA_CHARACTER)
-                ?: throw Exception("Required character intent extra")
+        character = intent?.extras?.getParcelable(EXTRA_CHARACTER)
+            ?: throw Exception("Required character intent extra")
 
         presenter.run {
             attach(this@CharacterDetailActivity)
@@ -160,7 +160,8 @@ class CharacterDetailActivity : BaseActivity(), CharacterDetailContract.View {
         character_detail_series_emptystate_view?.setIsVisible(false)
     }
 
-    override fun showComicsErrorState(retryAction: () -> Unit) {
+    override fun showComicsErrorState(messageId: Int, retryAction: () -> Unit) {
+        character_detail_comics_error_textview?.text = getString(messageId)
         character_detail_comics_error_view?.setIsVisible(true)
         character_detail_comics_retry_button?.setOnClickListener {
             retryAction.invoke()
@@ -171,7 +172,8 @@ class CharacterDetailActivity : BaseActivity(), CharacterDetailContract.View {
         character_detail_comics_error_view?.setIsVisible(false)
     }
 
-    override fun showSeriesErrorState(retryAction: () -> Unit) {
+    override fun showSeriesErrorState(messageId: Int, retryAction: () -> Unit) {
+        character_detail_series_error_textview?.text = getString(messageId)
         character_detail_series_error_view?.setIsVisible(true)
         character_detail_series_retry_button?.setOnClickListener {
             retryAction.invoke()
@@ -180,6 +182,14 @@ class CharacterDetailActivity : BaseActivity(), CharacterDetailContract.View {
 
     override fun hideSeriesErrorState() {
         character_detail_series_error_view?.setIsVisible(false)
+    }
+
+    override fun showEmptyFavorites() {
+        // Not applied to this view as it just need to update favorites
+    }
+
+    override fun hideEmptyFavorites() {
+        // Not applied to this view as it just need to update favorites
     }
 
 
