@@ -15,7 +15,7 @@ class TestModule {
 
     @CharacterDetailRoute
     @Provides
-    fun bindAnalyticsService(): IRoute<CharacterDetailRouteData> {
+    fun bindCharacterDetailRoute(): IRoute<CharacterDetailRouteData> {
         return mockk()
     }
 }
