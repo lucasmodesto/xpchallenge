@@ -25,7 +25,7 @@ import org.junit.Test
 
 @UninstallModules(RepositoryModule::class)
 @HiltAndroidTest
-class SearchCharatersFragmentTest {
+class SearchCharactersFragmentTest {
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
