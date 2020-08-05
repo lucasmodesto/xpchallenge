@@ -40,7 +40,7 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    debugImplementation deps.androidx.test.fragment
+    implementation deps.androidx.test.fragment
 
     // Dependency injection
     implementation deps.hilt.core
