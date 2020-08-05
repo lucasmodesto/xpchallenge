@@ -37,5 +37,4 @@ object NetworkModule {
     fun providesMarvelService(retrofit: Retrofit): IMarvelService {
         return retrofit.create(IMarvelService::class.java)
     }
-
 }

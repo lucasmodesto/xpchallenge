@@ -16,14 +16,24 @@ class AuthenticationInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val timestamp = System.currentTimeMillis().toString()
-        val hash = (timestamp + BuildConfig.API_PRIVATE_KEY + BuildConfig.API_PUBLIC_KEY).toMd5Hash()
+        val hash =
+            (timestamp + BuildConfig.API_PRIVATE_KEY + BuildConfig.API_PUBLIC_KEY).toMd5Hash()
 
         val originalRequest = chain.request()
         val url: HttpUrl = chain.request().url
             .newBuilder()
-            .addQueryParameter(API_KEY_QUERY_PARAM, BuildConfig.API_PUBLIC_KEY)
-            .addQueryParameter(HASH_QUERY_PARAM, hash)
-            .addQueryParameter(TIMESTAMP_QUERY_PARAM, timestamp)
+            .addQueryParameter(
+                API_KEY_QUERY_PARAM,
+                BuildConfig.API_PUBLIC_KEY
+            )
+            .addQueryParameter(
+                HASH_QUERY_PARAM,
+                hash
+            )
+            .addQueryParameter(
+                TIMESTAMP_QUERY_PARAM,
+                timestamp
+            )
             .build()
 
         val newRequest = originalRequest.newBuilder().url(url).build()

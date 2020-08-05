@@ -13,4 +13,4 @@ jobs:
           name: chmod permission
           command: chmod +x ./gradlew
       - run:
-          command: ./gradlew test
+          command: ./gradlew test ktlint

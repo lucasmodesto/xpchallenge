@@ -18,6 +18,4 @@ class ComicEntityMapper @Inject constructor() :
     private fun formatImageUrl(thumbnail: ComicsResponse.Data.ComicResponse.Thumbnail): String {
         return thumbnail.path.replace("http://", "https://") + "." + thumbnail.extension
     }
-
-
 }

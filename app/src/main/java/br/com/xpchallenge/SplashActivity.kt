@@ -19,9 +19,12 @@ class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        Handler().postDelayed({
-            route.open(context = this, parameters = HomeRouteData())
-            finish()
-        }, 400)
+        Handler().postDelayed(
+            {
+                route.open(context = this, parameters = HomeRouteData())
+                finish()
+            },
+            400
+        )
     }
 }

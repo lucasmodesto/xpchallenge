@@ -37,9 +37,11 @@ open class FavoritePresenter<T : FavoriteContract.View> :
                         } else {
                             view?.hideEmptyFavorites()
                         }
-                        view?.updateFavorites(characters = characters.map {
-                            characterViewObjectMapper.map(it)
-                        })
+                        view?.updateFavorites(
+                            characters = characters.map {
+                                characterViewObjectMapper.map(it)
+                            }
+                        )
                     },
 
                     onError = {

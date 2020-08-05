@@ -109,7 +109,8 @@ class SearchCharactersFragment : BaseFragment(), HomeContract.SearchCharactersVi
             _adapter.clear()
             presenter.resetPage()
             presenter.loadCharacters(
-                query = searchview.query.toString().takeIf { it.isNotEmpty() })
+                query = searchview.query.toString().takeIf { it.isNotEmpty() }
+            )
         }
     }
 

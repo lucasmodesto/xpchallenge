@@ -12,5 +12,4 @@ class HomeRouter @Inject constructor() : IRoute<HomeRouteData> {
     override fun open(context: Context?, parameters: HomeRouteData) {
         context?.startActivity(Intent(context, HomeActivity::class.java))
     }
-
 }

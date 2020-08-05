@@ -13,5 +13,4 @@ abstract class PresenterModule {
 
     @Binds
     abstract fun bindDetailPresenter(presenterImpl: CharacterDetailPresenter): CharacterDetailContract.Presenter
-
 }

@@ -54,5 +54,4 @@ class HomeActivity : BaseActivity() {
                 }.show()
         }
     }
-
 }

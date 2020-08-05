@@ -41,7 +41,8 @@ class SearchCharactersPresenter @Inject constructor() :
                         } else {
                             view?.hideEmptyState()
                             view?.showCharacters(
-                                result.characters.map { characterViewObjectMapper.map(it) })
+                                result.characters.map { characterViewObjectMapper.map(it) }
+                            )
                         }
                     },
 

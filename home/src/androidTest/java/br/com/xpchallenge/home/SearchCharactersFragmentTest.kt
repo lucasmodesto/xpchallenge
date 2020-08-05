@@ -45,14 +45,18 @@ class SearchCharactersFragmentTest {
     fun successScenario() {
         every { repository.getCharacters(any(), any()) } returns Single.just(
             CharactersResult(
-                characters = listOf(mockk(relaxed = true){
-                    every { name } returns "Hulk"
-                    every { imageUrl } returns "https://i.annihil.us/u/prod/marvel/i/mg/5/a0/538615ca33ab0.jpg"
-                    every { isImageAvailable } returns true
-                }),
+                characters = listOf(
+                    mockk(relaxed = true) {
+                        every { name } returns "Hulk"
+                        every { imageUrl } returns "https://i.annihil.us/u/prod/marvel/i/mg/5/a0/538615ca33ab0.jpg"
+                        every { isImageAvailable } returns true
+                    }
+                ),
                 count = 0,
                 totalCount = 0,
-                offset = 0))
+                offset = 0
+            )
+        )
         every { repository.getFavoriteCharacters() } returns Observable.just(emptyList())
 
         launchFragmentInHiltContainer<SearchCharactersFragment>()
@@ -68,7 +72,9 @@ class SearchCharactersFragmentTest {
                 characters = emptyList(),
                 count = 0,
                 totalCount = 0,
-                offset = 0))
+                offset = 0
+            )
+        )
         every { repository.getFavoriteCharacters() } returns Observable.just(emptyList())
 
         launchFragmentInHiltContainer<SearchCharactersFragment>()
@@ -97,5 +103,4 @@ class SearchCharactersFragmentTest {
 
         checkIfViewShowsText(message = R.string.unknown_error_message)
     }
-
 }

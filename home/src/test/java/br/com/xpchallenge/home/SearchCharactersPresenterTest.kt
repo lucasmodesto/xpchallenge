@@ -28,8 +28,7 @@ class SearchCharactersPresenterTest {
     @Before
     fun setup() {
         MockKAnnotations.init(this, relaxUnitFun = true)
-        presenter = SearchCharactersPresenter(
-        ).apply {
+        presenter = SearchCharactersPresenter().apply {
             view = viewMock
             repository = repositoryMock
             characterViewObjectMapper = mapperMock
@@ -44,12 +43,14 @@ class SearchCharactersPresenterTest {
                 any(),
                 any()
             )
-        } returns Single.just(mockk(relaxed = true) {
-            every { characters } returns listOf(
-                mockk()
-            )
-            every { count } returns 20
-        })
+        } returns Single.just(
+            mockk(relaxed = true) {
+                every { characters } returns listOf(
+                    mockk()
+                )
+                every { count } returns 20
+            }
+        )
 
         every { mapperMock.map(any()) } returns mockk(relaxed = true)
 
@@ -107,10 +108,12 @@ class SearchCharactersPresenterTest {
                 any(),
                 any()
             )
-        } returns Single.just(mockk(relaxed = true) {
-            every { count } returns 20
-            every { characters } returns emptyList()
-        })
+        } returns Single.just(
+            mockk(relaxed = true) {
+                every { count } returns 20
+                every { characters } returns emptyList()
+            }
+        )
 
         presenter.loadCharacters()
 
@@ -174,5 +177,4 @@ class SearchCharactersPresenterTest {
         assert(!presenter.isLastPage)
         assert(presenter.paginationOffset == 0)
     }
-
 }

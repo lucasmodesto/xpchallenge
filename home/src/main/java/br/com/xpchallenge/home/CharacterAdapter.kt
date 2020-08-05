@@ -81,5 +81,4 @@ class CharacterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
-
 }

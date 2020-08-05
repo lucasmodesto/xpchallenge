@@ -15,5 +15,4 @@ class SchedulersProvider @Inject constructor() :
     override fun main(): Scheduler {
         return AndroidSchedulers.mainThread()
     }
-
 }

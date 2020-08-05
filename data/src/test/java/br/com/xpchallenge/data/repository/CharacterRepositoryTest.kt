@@ -143,7 +143,6 @@ class CharacterRepositoryTest {
         every { daoMock.getCharacters() } returns Single.just(listOf(favoritesMock))
         every { characterMapperMock.map(any()) } returns mockk(relaxed = true)
 
-
         repository.getCharacters(query, 0)
             .test()
             .assertNoErrors()
@@ -322,5 +321,4 @@ class CharacterRepositoryTest {
             serviceMock.getSeries(any())
         }
     }
-
 }

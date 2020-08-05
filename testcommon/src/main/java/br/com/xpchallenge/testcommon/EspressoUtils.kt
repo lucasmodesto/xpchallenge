@@ -11,7 +11,6 @@ import androidx.test.espresso.matcher.ViewMatchers
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 
-
 fun checkIfViewShowsText(@StringRes message: Int) {
     Espresso.onView(ViewMatchers.withText(message))
         .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))

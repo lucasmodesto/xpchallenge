@@ -17,7 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_character_detail.*
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
 class CharacterDetailActivity : BaseActivity(), CharacterDetailContract.View {
 
@@ -191,6 +190,4 @@ class CharacterDetailActivity : BaseActivity(), CharacterDetailContract.View {
     override fun hideEmptyFavorites() {
         // Not applied to this view as it just need to update favorites
     }
-
-
 }

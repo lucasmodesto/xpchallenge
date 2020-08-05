@@ -22,5 +22,4 @@ interface ICharacterRepository {
     fun getComics(id: Int): Single<List<Comic>>
 
     fun getSeries(id: Int): Single<List<Series>>
-
 }

@@ -8,7 +8,11 @@ import br.com.xpchallenge.presentation.core.IBasePresenter
 object CharacterDetailContract {
 
     interface View : FavoriteContract.View {
-        fun showDescription(hasDescription: Boolean, description: String)
+        fun showDescription(
+            hasDescription: Boolean,
+            description: String
+        )
+
         fun showImage(imageUrl: String)
         fun showName(name: String)
         fun showComics(comics: List<MediaViewObject>)
@@ -21,8 +25,16 @@ object CharacterDetailContract {
         fun hideComicsEmptyState()
         fun showSeriesEmptyState()
         fun hideSeriesEmptyState()
-        fun showComicsErrorState(messageId: Int,retryAction: () -> Unit)
-        fun showSeriesErrorState(messageId: Int, retryAction: () -> Unit)
+        fun showComicsErrorState(
+            messageId: Int,
+            retryAction: () -> Unit
+        )
+
+        fun showSeriesErrorState(
+            messageId: Int,
+            retryAction: () -> Unit
+        )
+
         fun hideComicsErrorState()
         fun hideSeriesErrorState()
     }

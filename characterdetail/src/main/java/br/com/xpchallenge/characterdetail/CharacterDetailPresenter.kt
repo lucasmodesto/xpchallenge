@@ -45,12 +45,15 @@ class CharacterDetailPresenter @Inject constructor(
                     },
 
                     onError = {
-                        view?.showComicsErrorState(messageId = when (it) {
-                            is NetworkError.NotConnected -> R.string.no_internet_message
-                            else -> R.string.comics_load_error
-                        }, retryAction = {
-                            loadComics(id)
-                        })
+                        view?.showComicsErrorState(
+                            messageId = when (it) {
+                                is NetworkError.NotConnected -> R.string.no_internet_message
+                                else -> R.string.comics_load_error
+                            },
+                            retryAction = {
+                                loadComics(id)
+                            }
+                        )
                     }
                 )
         }
@@ -77,12 +80,15 @@ class CharacterDetailPresenter @Inject constructor(
                     },
 
                     onError = {
-                        view?.showSeriesErrorState(messageId = when (it) {
-                            is NetworkError.NotConnected -> R.string.no_internet_message
-                            else -> R.string.series_load_error
-                        }, retryAction = {
-                            loadSeries(id)
-                        })
+                        view?.showSeriesErrorState(
+                            messageId = when (it) {
+                                is NetworkError.NotConnected -> R.string.no_internet_message
+                                else -> R.string.series_load_error
+                            },
+                            retryAction = {
+                                loadSeries(id)
+                            }
+                        )
                     }
                 )
         }

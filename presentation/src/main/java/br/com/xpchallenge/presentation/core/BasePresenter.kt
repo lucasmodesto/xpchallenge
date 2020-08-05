@@ -50,6 +50,4 @@ open class BasePresenter<T : BaseView> : IBasePresenter<T> {
             .subscribeOn(schedulersProvider.io())
             .observeOn(schedulersProvider.main())
     }
-
-
 }

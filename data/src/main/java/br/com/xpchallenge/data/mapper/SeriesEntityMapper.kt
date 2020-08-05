@@ -15,6 +15,9 @@ class SeriesEntityMapper @Inject constructor() : ISeriesEntityMapper<SeriesRespo
     }
 
     private fun formatImageUrl(thumbnail: SeriesResponse.Data.Result.Thumbnail): String {
-        return thumbnail.path.replace("http://", "https://") + "." + thumbnail.extension
+        return thumbnail.path.replace(
+            "http://",
+            "https://"
+        ) + "." + thumbnail.extension
     }
 }

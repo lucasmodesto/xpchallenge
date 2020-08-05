@@ -11,17 +11,20 @@ class CharacterDetailRouter @Inject constructor() : IRoute<CharacterDetailRouteD
 
     override fun open(context: Context?, parameters: CharacterDetailRouteData) {
         context?.startActivity(
-            CharacterDetailActivity.newIntent(context = context, character =
-            parameters.character.run {
-                CharacterViewObject(
-                    id = this.id,
-                    name = this.name,
-                    imageUrl = this.imageUrl,
-                    isImageAvailable = this.isImageAvailable,
-                    description = this.description,
-                    isFavorite = this.isFavorite
-                )
-            })
+            CharacterDetailActivity.newIntent(
+                context = context,
+                character = parameters.character.run {
+                    CharacterViewObject(
+                        id = this.id,
+                        name = this.name,
+                        imageUrl = this.imageUrl,
+                        isImageAvailable = this.isImageAvailable,
+                        description = this.description,
+                        isFavorite = this.isFavorite
+
+                    )
+                }
+            )
         )
     }
 }

@@ -66,5 +66,4 @@ class RxCallAdapterWrapper<R : Any>(private val wrapped: CallAdapter<R, *>) : Ca
             }
         }
     }
-
 }

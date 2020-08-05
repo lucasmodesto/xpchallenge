@@ -50,7 +50,8 @@ class CharacterRepository @Inject constructor(
                     totalCount = apiResponse.data.total,
                     offset = apiResponse.data.offset
                 )
-            })
+            }
+        )
     }
 
     override fun getFavoriteCharacters(): Observable<List<Character>> {

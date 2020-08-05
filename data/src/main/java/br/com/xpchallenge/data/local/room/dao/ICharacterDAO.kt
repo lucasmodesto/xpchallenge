@@ -1,6 +1,10 @@
 package br.com.xpchallenge.data.local.room.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Query
+import androidx.room.Insert
+import androidx.room.Delete
+import androidx.room.OnConflictStrategy
 import br.com.xpchallenge.data.local.room.model.CharacterDBModel
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable

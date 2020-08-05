@@ -18,5 +18,4 @@ class RxJavaCallAdapterFactory : CallAdapter.Factory() {
             original[returnType, annotations, retrofit] as CallAdapter<Any, Any>
         )
     }
-
 }

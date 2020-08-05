@@ -24,5 +24,4 @@ class CharacterEntityMapper @Inject constructor() :
     private fun formatImageUrl(thumbnail: CharactersResponse.Data.CharacterResponse.Thumbnail): String {
         return thumbnail.path.replace("http://", "https://") + "." + thumbnail.extension
     }
-
 }
