@@ -17,6 +17,9 @@ class HomeActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         setupBottomNavigation()
+        if (savedInstanceState == null) {
+            home_bottom_navigation?.selectedItemId = R.id.bottom_navigation_search
+        }
     }
 
     @VisibleForTesting
@@ -37,7 +40,6 @@ class HomeActivity : BaseActivity() {
                 .commit()
             return@setOnNavigationItemSelectedListener true
         }
-        home_bottom_navigation?.selectedItemId = R.id.bottom_navigation_search
     }
 
     override fun showError(message: Int, retryAction: () -> Unit) {
@@ -53,5 +55,10 @@ class HomeActivity : BaseActivity() {
                     retryAction.invoke()
                 }.show()
         }
+    }
+
+    private companion object {
+        private const val FRAGMENT_SEARCH = 0
+        private const val FRAGMENT_FAVORITES = 1
     }
 }
