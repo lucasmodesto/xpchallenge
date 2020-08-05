@@ -1,4 +1,4 @@
-package br.com.xpchallenge
+package br.com.xpchallenge.testcommon
 
 import android.app.Application
 import android.content.Context

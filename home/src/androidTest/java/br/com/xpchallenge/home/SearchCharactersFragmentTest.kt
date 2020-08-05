@@ -1,22 +1,18 @@
 package br.com.xpchallenge.home
 
-import androidx.annotation.StringRes
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.*
-import br.com.xpchallenge.R
 import br.com.xpchallenge.data.di.RepositoryModule
-import br.com.xpchallenge.domain.errors.NetworkError
 import br.com.xpchallenge.domain.entity.CharactersResult
+import br.com.xpchallenge.domain.errors.NetworkError
 import br.com.xpchallenge.domain.repository.ICharacterRepository
-import br.com.xpchallenge.launchFragmentInHiltContainer
+import br.com.xpchallenge.testcommon.checkIfViewShowsText
+import br.com.xpchallenge.testcommon.launchFragmentInHiltContainer
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import io.mockk.MockKAnnotations
 import io.mockk.every
-import io.mockk.mockk
+import io.mockk.impl.annotations.MockK
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import org.junit.Before
@@ -31,8 +27,8 @@ class SearchCharactersFragmentTest {
     var hiltRule = HiltAndroidRule(this)
 
     @BindValue
-    @JvmField
-    val repository: ICharacterRepository = mockk()
+    @MockK
+    lateinit var repository: ICharacterRepository
 
     @Before
     fun before() {
@@ -75,11 +71,6 @@ class SearchCharactersFragmentTest {
         launchFragmentInHiltContainer<SearchCharactersFragment>()
 
         checkIfViewShowsText(message = R.string.unknown_error_message)
-    }
-
-    private fun checkIfViewShowsText(@StringRes message: Int) {
-        onView(withText(message))
-            .check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
     }
 
 }

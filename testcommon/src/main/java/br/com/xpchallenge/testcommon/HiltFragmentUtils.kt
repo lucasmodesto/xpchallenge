@@ -1,5 +1,6 @@
-package br.com.xpchallenge
+package br.com.xpchallenge.testcommon
 
+import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Intent
 import android.os.Bundle
@@ -15,11 +16,13 @@ import androidx.test.core.app.ApplicationProvider
  * is NOT possible to use right now as it uses a hardcoded Activity under the hood
  * (i.e. [EmptyFragmentActivity]) which is not annotated with @AndroidEntryPoint.
  *  This solution was suggested on https://developer.android.com/training/dependency-injection/hilt-testing
+ *  and it's on https://github.com/android/architecture-samples repository
  **/
 
+@SuppressLint("RestrictedApi")
 inline fun <reified T : Fragment> launchFragmentInHiltContainer(
     fragmentArgs: Bundle? = null,
-    @StyleRes themeResId: Int = R.style.AppTheme,
+    @StyleRes themeResId: Int = R.style.FragmentScenarioEmptyFragmentActivityTheme,
     crossinline action: Fragment.() -> Unit = {}
 ) {
     val startActivityIntent = Intent.makeMainActivity(

@@ -1,0 +1,9 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="br.com.xpchallenge.testcommon">
+
+    <application>
+        <activity
+            android:name="br.com.xpchallenge.testcommon.HiltTestActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
+    </application>
+</manifest>

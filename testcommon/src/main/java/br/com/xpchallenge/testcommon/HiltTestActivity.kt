@@ -1,4 +1,4 @@
-package br.com.xpchallenge
+package br.com.xpchallenge.testcommon
 
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint

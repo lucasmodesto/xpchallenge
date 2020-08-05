@@ -6,15 +6,19 @@ import br.com.xpchallenge.router.HomeRouteData
 import br.com.xpchallenge.router.IRoute
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.components.ApplicationComponent
 
 @Module
-@InstallIn(ApplicationComponent::class)
-abstract class RouterModule {
+@InstallIn(ActivityComponent::class)
+class RouterModule {
 
-    @Binds
+    @Provides
     @HomeRoute
-    abstract fun bindHomeRoute(route: HomeRouter): IRoute<HomeRouteData>
+    fun bindHomeRoute(): IRoute<HomeRouteData> {
+        return HomeRouter()
+    }
 
 }

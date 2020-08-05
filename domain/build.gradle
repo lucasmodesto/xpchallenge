@@ -12,8 +12,6 @@ android {
         targetSdkVersion versions.targetSdkVersion
         versionCode versions.versionCode
         versionName versions.versionName
-        testInstrumentationRunner "br.com.xpchallenge.HiltTestJUnitRunner"
-        testInstrumentationRunnerArguments clearPackageData: 'true'
     }
 
     compileOptions {

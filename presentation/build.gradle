@@ -15,7 +15,7 @@ android {
         versionCode versions.versionCode
         versionName versions.versionName
         consumerProguardFiles "consumer-rules.pro"
-        testInstrumentationRunner "br.com.xpchallenge.HiltTestJUnitRunner"
+        testInstrumentationRunner "br.com.xpchallenge.testcommon.HiltTestJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
     }
 
