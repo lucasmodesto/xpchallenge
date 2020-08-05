@@ -3,7 +3,7 @@
  
  # Features
 - Home screen (Search Characters / Favorites)
-- Detail screen
+- Detail screen (Comics & Series)
 
  # Libraries and tools
 - [OkHttp](https://square.github.io/okhttp/)
