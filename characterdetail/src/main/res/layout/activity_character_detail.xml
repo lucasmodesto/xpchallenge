@@ -50,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Comics"
+                android:text="@string/comics"
                 android:textAllCaps="true"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -80,7 +80,7 @@
                 android:id="@+id/character_detail_comics_emptystate_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sem registros"
+                android:text="@string/empty_state_media_message"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@id/character_detail_comics_recycler_view"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -93,7 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Series"
+                android:text="@string/series"
                 android:textAllCaps="true"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -123,8 +123,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/character_detail_comics_error_view"
                 android:layout_width="match_parent"
-                android:visibility="gone"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@id/character_detail_comics_recycler_view"
                 app:layout_constraintTop_toTopOf="@id/character_detail_comics_recycler_view">
 
@@ -132,7 +132,7 @@
                     android:id="@+id/character_detail_comics_error_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Erro ao carregar comics"
+                    android:text="@string/comics_load_error"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -144,7 +144,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:backgroundTint="#000"
-                    android:text="Tentar novamente"
+                    android:text="@string/try_again"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/character_detail_comics_error_textview" />
@@ -163,7 +163,7 @@
                     android:id="@+id/character_detail_series_error_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Erro ao carregar comics"
+                    android:text="@string/series_load_error"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -175,7 +175,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:backgroundTint="#000"
-                    android:text="Tentar novamente"
+                    android:text="@string/try_again"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/character_detail_series_error_textview" />
@@ -186,7 +186,7 @@
                 android:id="@+id/character_detail_series_emptystate_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sem registros"
+                android:text="@string/empty_state_media_message"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@id/character_detail_series_recycler_view"
                 app:layout_constraintEnd_toEndOf="parent"

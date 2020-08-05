@@ -21,7 +21,7 @@ class HomeActivity : BaseActivity() {
 
     @VisibleForTesting
     fun setupBottomNavigation() {
-        home_bottomnavigation?.setOnNavigationItemSelectedListener {
+        home_bottom_navigation?.setOnNavigationItemSelectedListener {
             val fmTransaction = supportFragmentManager.beginTransaction()
             val fragment: Fragment = when (it.itemId) {
                 R.id.bottom_navigation_search -> {
@@ -37,7 +37,7 @@ class HomeActivity : BaseActivity() {
                 .commit()
             return@setOnNavigationItemSelectedListener true
         }
-        home_bottomnavigation?.selectedItemId = R.id.bottom_navigation_search
+        home_bottom_navigation?.selectedItemId = R.id.bottom_navigation_search
     }
 
     override fun showError(message: Int, retryAction: () -> Unit) {
@@ -47,7 +47,7 @@ class HomeActivity : BaseActivity() {
                 message,
                 Snackbar.LENGTH_INDEFINITE
             ).setActionTextColor(ContextCompat.getColor(this, android.R.color.white))
-                .setAnchorView(home_bottomnavigation)
+                .setAnchorView(home_bottom_navigation)
                 .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
                 .setAction(getString(R.string.message_retry)) {
                     retryAction.invoke()

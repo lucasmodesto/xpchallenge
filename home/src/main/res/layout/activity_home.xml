@@ -10,13 +10,13 @@
         android:id="@+id/home_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_anchor="@id/home_bottomnavigation"
-        app:layout_constraintBottom_toTopOf="@id/home_bottomnavigation"
+        app:layout_anchor="@id/home_bottom_navigation"
+        app:layout_constraintBottom_toTopOf="@id/home_bottom_navigation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/home_bottomnavigation"
+        android:id="@+id/home_bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:backgroundTint="#3C3C3C"
