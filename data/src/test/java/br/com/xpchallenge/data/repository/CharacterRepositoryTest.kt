@@ -23,7 +23,7 @@ import org.junit.Test
 
 class CharacterRepositoryTest {
 
-    lateinit var repository: CharacterRepository
+    private lateinit var repository: CharacterRepository
 
     @MockK
     lateinit var serviceMock: IMarvelService
@@ -95,7 +95,7 @@ class CharacterRepositoryTest {
 
     @Test
     fun `load characters success scenario`() {
-        val search = "search"
+        val query = "search"
         val charactersResponseMock = CharactersResponse(
             data = CharactersResponse.Data(
                 offset = 0,
@@ -131,7 +131,7 @@ class CharacterRepositoryTest {
 
         every {
             serviceMock.getCharacters(
-                search = search,
+                query = query,
                 offset = any(),
                 limit = any(),
                 orderBy = any()
@@ -144,13 +144,13 @@ class CharacterRepositoryTest {
         every { characterMapperMock.map(any()) } returns mockk(relaxed = true)
 
 
-        repository.getCharacters(search)
+        repository.getCharacters(query, 0)
             .test()
             .assertNoErrors()
             .assertComplete()
 
         verify {
-            serviceMock.getCharacters(search)
+            serviceMock.getCharacters(query = query, offset = 0)
             daoMock.getCharacters()
         }
     }
@@ -160,7 +160,7 @@ class CharacterRepositoryTest {
         val error = Exception()
         every {
             serviceMock.getCharacters(
-                search = any(),
+                query = any(),
                 offset = any(),
                 limit = any(),
                 orderBy = any()
@@ -169,13 +169,13 @@ class CharacterRepositoryTest {
 
         every { daoMock.getCharacters() } returns Single.just(listOf())
 
-        repository.getCharacters()
+        repository.getCharacters(paginationOffset = 0)
             .test()
             .assertNoValues()
             .assertError(error)
 
         verify {
-            serviceMock.getCharacters()
+            serviceMock.getCharacters(offset = 0)
         }
     }
 

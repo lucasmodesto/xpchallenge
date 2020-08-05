@@ -34,7 +34,7 @@ class CharacterRepository @Inject constructor(
         paginationOffset: Int
     ): Single<CharactersResult> {
         return Single.zip(
-            service.getCharacters(search = query, offset = paginationOffset),
+            service.getCharacters(query = query, offset = paginationOffset),
             characterDao.getCharacters(),
             BiFunction { apiResponse, favoriteCharacters ->
                 val characters = apiResponse.data.results.map { characterResponse ->
