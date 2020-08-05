@@ -65,5 +65,4 @@ dependencies {
     androidTestImplementation deps.androidx.espresso.core
     androidTestImplementation deps.androidx.espresso.contrib
     androidTestImplementation deps.androidx.espresso.intents
-    androidTestImplementation deps.okhttp.idlingresource
 }

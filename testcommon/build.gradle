@@ -49,6 +49,5 @@ dependencies {
     implementation deps.androidx.espresso.core
     implementation deps.androidx.espresso.contrib
     implementation deps.androidx.espresso.intents
-    implementation deps.okhttp.idlingresource
     implementation deps.hilt.test
 }
