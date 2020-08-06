@@ -4,7 +4,7 @@
 # XP Challenge
  Android hilt playground with MVP clean architecture multi-module app
  
- ![modules](https://user-images.githubusercontent.com/20991962/89562572-8c0ce680-d7f0-11ea-865b-6471acb0c887.png)
+![image](https://user-images.githubusercontent.com/20991962/89563675-2e799980-d7f2-11ea-8b70-c295e6a5dde3.png)
  
  # Features
 - Home screen (Search Characters / Favorites)
