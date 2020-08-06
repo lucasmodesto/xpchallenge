@@ -126,7 +126,7 @@ class SearchCharactersFragment : BaseFragment(), HomeContract.SearchCharactersVi
         _adapter.update(characters)
     }
 
-    override fun updateFavorites(characters: List<CharacterViewObject>) {
+    override fun showFavoriteCharacters(characters: List<CharacterViewObject>) {
         _adapter.updateFavorites(characters)
     }
 

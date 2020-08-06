@@ -6,7 +6,7 @@ import br.com.xpchallenge.presentation.core.BaseView
 object FavoriteContract {
 
     interface View : BaseView {
-        fun updateFavorites(characters: List<CharacterViewObject>)
+        fun showFavoriteCharacters(characters: List<CharacterViewObject>)
         fun showEmptyFavorites()
         fun hideEmptyFavorites()
     }

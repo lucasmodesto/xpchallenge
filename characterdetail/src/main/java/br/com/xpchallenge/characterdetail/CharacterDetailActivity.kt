@@ -88,7 +88,7 @@ class CharacterDetailActivity : BaseActivity(), CharacterDetailContract.View {
         }
     }
 
-    override fun updateFavorites(characters: List<CharacterViewObject>) {
+    override fun showFavoriteCharacters(characters: List<CharacterViewObject>) {
         val item = characters.find { it.id == character.id }
         val isFavorite = item?.isFavorite ?: false
         val image = ContextCompat.getDrawable(

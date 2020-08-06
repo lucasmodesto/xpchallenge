@@ -132,7 +132,7 @@ class SearchCharactersPresenterTest {
         presenter.subscribeToFavorites()
 
         verify {
-            viewMock.updateFavorites(any())
+            viewMock.showFavoriteCharacters(any())
             mapperMock.map(any())
         }
 
@@ -152,7 +152,7 @@ class SearchCharactersPresenterTest {
         }
 
         verify(exactly = 0) {
-            viewMock.updateFavorites(any())
+            viewMock.showFavoriteCharacters(any())
         }
     }
 

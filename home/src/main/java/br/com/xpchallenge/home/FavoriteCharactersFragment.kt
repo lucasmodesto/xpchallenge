@@ -71,7 +71,7 @@ class FavoriteCharactersFragment : BaseFragment(), HomeContract.FavoritesView {
         }
     }
 
-    override fun updateFavorites(characters: List<CharacterViewObject>) {
+    override fun showFavoriteCharacters(characters: List<CharacterViewObject>) {
         _adapter.clear()
         _adapter.update(characters)
     }
