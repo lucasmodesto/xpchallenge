@@ -2,7 +2,7 @@
 [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
 
 # XP Challenge
- Android hilt playground with MVP clean architecture multi-module app
+ Android hilt multi module app with MVP and clean architecture
  
 ![image](https://user-images.githubusercontent.com/20991962/89563675-2e799980-d7f2-11ea-8b70-c295e6a5dde3.png)
  
