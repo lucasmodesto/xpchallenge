@@ -2,7 +2,9 @@
 [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
 
 # XP Challenge
- Android Hilt playground with MVP clean architecture Multi-module app
+ Android hilt playground with MVP clean architecture multi-module app
+ 
+ ![modules](https://user-images.githubusercontent.com/20991962/89562572-8c0ce680-d7f0-11ea-865b-6471acb0c887.png)
  
  # Features
 - Home screen (Search Characters / Favorites)
