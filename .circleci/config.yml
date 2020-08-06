@@ -14,7 +14,7 @@ jobs:
           command: chmod +x ./gradlew
       - run:
           name: unit tests
-          command: ./gradlew test ktlint
+          command: ./gradlew test
       - run:
           name: lint
-          command: ./gradlew test ktlint
+          command: ./gradlew ktlint
