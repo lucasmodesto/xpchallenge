@@ -1,4 +1,4 @@
-![CircleCI](https://circleci.com/gh/lucasmodesto/xpchallenge.svg?style=svg&circle-token=355c0f3e83c40a87aa48541384416f2ffa1a59b7)
+![CircleCI](https://circleci.com/gh/lucasmodesto/xpchallenge.svg?style=svg)
 [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
 
 # XP Challenge
