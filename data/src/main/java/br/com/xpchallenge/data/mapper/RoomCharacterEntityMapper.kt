@@ -13,7 +13,7 @@ class RoomCharacterEntityMapper @Inject constructor() : ICharacterEntityMapper<C
             imageUrl = data.imageUrl,
             description = data.description,
             isFavorite = data.isFavorite,
-            isImageAvailable = true
+            isImageAvailable = data.isImageAvailable
         )
     }
 }
