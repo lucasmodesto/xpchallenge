@@ -19,6 +19,7 @@
 - [Espresso](https://developer.android.com/training/testing/espresso)
 - [JUnit](https://junit.org/junit5/)
 - [Jacoco](https://github.com/jacoco/jacoco)
+- [Ktlint](https://ktlint.github.io/)
 
 # Screenshots
 
