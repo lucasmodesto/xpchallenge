@@ -4,6 +4,8 @@
 # XP Challenge
  Android hilt multi module app with MVP and clean architecture
  
+ ** For some reason Instrumented tests are only running on Android Emulator... tested on (Pixel 3 API 30)
+ 
 ![image](https://user-images.githubusercontent.com/20991962/89563675-2e799980-d7f2-11ea-8b70-c295e6a5dde3.png)
  
  # Features
@@ -28,3 +30,4 @@
   ![image](https://user-images.githubusercontent.com/20991962/89229068-22ee5e80-d5b7-11ea-8ef6-446456048514.png)
   ![image](https://user-images.githubusercontent.com/20991962/89229100-33063e00-d5b7-11ea-8a88-865168ff51bb.png)
   ![image](https://user-images.githubusercontent.com/20991962/89229130-3ef20000-d5b7-11ea-8e0c-81606df51f3c.png)
+  
