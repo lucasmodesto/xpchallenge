@@ -20,11 +20,6 @@ android {
         testInstrumentationRunnerArguments clearPackageData: 'true'
     }
 
-    compileOptions {
-        sourceCompatibility versions.javaVersion
-        targetCompatibility versions.javaVersion
-    }
-
     buildTypes {
         release {
             minifyEnabled true
