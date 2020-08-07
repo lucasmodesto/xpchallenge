@@ -6,7 +6,7 @@
  
  ** Instrumented tests are running only on some devices, tests passed on Pixel 3 API 30.
  
-![image](https://user-images.githubusercontent.com/20991962/89563675-2e799980-d7f2-11ea-8b70-c295e6a5dde3.png)
+![image](https://user-images.githubusercontent.com/20991962/89653288-2c204980-d89d-11ea-92ea-57ad863cc296.png)
  
  # Features
 - Home screen (Search Characters / Favorites)
