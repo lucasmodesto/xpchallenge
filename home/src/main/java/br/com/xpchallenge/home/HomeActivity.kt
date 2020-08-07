@@ -22,8 +22,7 @@ class HomeActivity : BaseActivity() {
         }
     }
 
-    @VisibleForTesting
-    fun setupBottomNavigation() {
+    private fun setupBottomNavigation() {
         home_bottom_navigation?.setOnNavigationItemSelectedListener {
             val fmTransaction = supportFragmentManager.beginTransaction()
             val fragment: Fragment = when (it.itemId) {
@@ -40,25 +39,5 @@ class HomeActivity : BaseActivity() {
                 .commit()
             return@setOnNavigationItemSelectedListener true
         }
-    }
-
-    override fun showError(message: Int, retryAction: () -> Unit) {
-        if (!isFinishing) {
-            Snackbar.make(
-                findViewById(android.R.id.content),
-                message,
-                Snackbar.LENGTH_INDEFINITE
-            ).setActionTextColor(ContextCompat.getColor(this, android.R.color.white))
-                .setAnchorView(home_bottom_navigation)
-                .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
-                .setAction(getString(R.string.message_retry)) {
-                    retryAction.invoke()
-                }.show()
-        }
-    }
-
-    private companion object {
-        private const val FRAGMENT_SEARCH = 0
-        private const val FRAGMENT_FAVORITES = 1
     }
 }
