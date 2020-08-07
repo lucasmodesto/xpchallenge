@@ -1,12 +1,8 @@
 package br.com.xpchallenge.home
 
 import android.os.Bundle
-import androidx.annotation.VisibleForTesting
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import br.com.xpchallenge.presentation.core.BaseActivity
-import com.google.android.material.snackbar.BaseTransientBottomBar
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_home.*
 
